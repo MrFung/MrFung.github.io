@@ -1,0 +1,158 @@
+# This is the default format.
+# For more see: http://jekyllrb.com/docs/permalinks/
+permalink: /:categories/:year/:month/:day/:title
+
+exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
+highlighter: pygments
+
+assets: /assets
+baseurl:
+
+# pagination
+paginate: 20
+
+# Markdown Processors
+markdown: redcarpet
+redcarpet:
+  extensions:
+    - hard_wrap
+    - no_intra_emphasis
+    - autolink
+    - strikethrough
+    - tables
+    - lax_spacing
+    - with_toc_data
+
+
+title : MrFung's Blog
+tagline: 一个iOS程序猿
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      type: "post"
+
+##### Menu
+menu:
+  主页: /
+  归档: /archives
+  关于: /about
+## you can create `tags` and `categories` folders in `../source`.
+## And create a `index.md` file in each of them.
+## set `front-matter`as
+## layout: tags (or categories)
+## title: tags (or categories)
+## ---
+
+#### 控件
+widgets:
+- category
+- tag
+- links
+- douban
+- rss
+## provide seven widgets:category,tag,rss,archive,tagcloud,links,weibo,douban
+
+
+#### RSS
+rss: /atom.xml ## RSS address.
+
+#### 图片相关
+imglogo:
+  enable: true              ## 是否显示网站 logo
+  src: img/MrFung.jpg        ## `.svg` and `.png` are recommended,please put image into the theme folder `/jacman/source/img`.
+favicon: img/MrFung.jpg   ## 网站图标
+apple_icon: img/MrFung.jpg ## 苹果设备上的图标，背景不要透明
+author_img: img/MrFung.jpg    ## 网站底部的博主头像
+banner_img: img/banner.jpg  ## 博客顶部的图片
+
+close_aside: false      ##是否在文章页面自动关闭侧边栏
+
+#### 首页相关
+index:
+  expand: true              ## 首页文章是否展开。默认为展开式，显示 Read More。
+  excerpt_link: Read More
+
+#### 作者信息
+author:
+  name: MrFung      ## 作者名
+  intro_line1:  "一个iOS程序猿."    ## 网站底部的个人介绍
+  intro_line2:  "这是我的博客."  ## the 2nd line
+  weibo:        ## 用于显示网站底部社交按钮，下同 ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895
+  weibo_verifier:  ### 微博秀的验证码
+  tsina:      ## 用于微博秀和微博分享
+  douban:     ## e.g. wuchong1014 or your id for https://www.douban.com/people/wuchong1014
+  zhihu:      ## e.g. jark  for http://www.zhihu.com/people/jark
+  email:      2578033436@qq.com ## e.g. imjark@gmail.com
+  twitter:    ## e.g. jarkwu for https://twitter.com/jarkwu
+  github:     /MrFung ## e.g. wuchong for https://github.com/wuchong
+  facebook:   ## e.g. imjark for https://facebook.com/imjark
+  linkedin:   ## e.g. wuchong1014 for https://www.linkedin.com/in/wuchong1014
+  google_plus:    ## e.g. "111190881341800841449" for https://plus.google.com/u/0/111190881341800841449, the "" is needed!
+  stackoverflow:  ## e.g. 3222790 for http://stackoverflow.com/users/3222790/jark
+## if you set them, the corresponding  share button will show on the footer
+
+#### 目录
+toc:
+  article: true   ## 是否在文章中显示目录
+  aside: true      ## 是否在侧边栏显示目录
+## you can set both of the value to true of neither of them.
+## if you don't want display contents in a specified post,you can modify `front-matter` and add `toc: false`.
+
+#### 友情链接
+links:
+  我的简书: http://www.jianshu.com/users/c23ee99436ec/latest_articles
+  我的学长Lastdays's Blog: lastdays.cn
+
+
+#### 评论
+duoshuo_shortname: MrFung     ##your duoshuo short name.
+disqus_shortname:             ##your disqus short name.
+
+#### 分享按钮
+jiathis:
+  enable: false  ## 默认使用主题内建分享
+  id:    ## e.g. 1889330 your jiathis ID.
+  tsina: ## e.g. 2176287895 Your weibo id,It will be used in share button.
+
+#### 网站统计
+google_analytics:
+  enable: false
+  id:          ## google analytics ID.
+  site:       ## 网站地址.
+## You MUST upgrade to Universal Analytics first!
+## https://developers.google.com/analytics/devguides/collection/upgrade/?hl=zh_CN
+baidu_tongji:
+  enable: false
+  sitecode:  ## 百度统计站点特征码
+cnzz_tongji:
+  enable: false
+  siteid:    ## CNZZ统计站点ID
+
+#### 杂项
+ShowCustomFont: true
+fancybox: true        ## if you use gallery post or want use fancybox please set the value to true.
+totop: true           ## if you want to scroll to top in every post set the value to true
+
+
+#### 自定义搜索
+google_cse:
+  enable: false
+  cx:  ## e.g. 018294693190868310296:abnhpuysycw your Custom Search ID.
+## https://www.google.com/cse/
+## To enable the custom search You must create a "search" folder in '/source' and a "index.md" file
+## set the 'front-matter' as
+## layout: search
+## title: search
+## ---
+baidu_search:     ## http://zn.baidu.com/
+  enable: false
+  id:   ## e.g. "783281470518440642"  for your baidu search id
+  site: http://zhannei.baidu.com/cse/search  ## your can change to your site instead of the default site
+
+tinysou_search:     ## http://tinysou.com/
+  enable: false
+  id: 4ac092ad8d749fdc6293 ## e.g. "4ac092ad8d749fdc6293" for your tiny search id
