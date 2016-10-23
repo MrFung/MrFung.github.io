@@ -69,7 +69,7 @@ apple_icon: img/MrFung.jpg ## 苹果设备上的图标，背景不要透明
 author_img: img/MrFung.jpg    ## 网站底部的博主头像
 banner_img: img/banner.jpg  ## 博客顶部的图片
 
-close_aside: false      ##是否在文章页面自动关闭侧边栏
+close_aside: true      ##是否在文章页面自动关闭侧边栏
 
 #### 首页相关
 index:
@@ -98,7 +98,7 @@ author:
 #### 目录
 toc:
   article: true   ## 是否在文章中显示目录
-  aside: false      ## 是否在侧边栏显示目录
+  aside: true      ## 是否在侧边栏显示目录
 ## you can set both of the value to true of neither of them.
 ## if you don't want display contents in a specified post,you can modify `front-matter` and add `toc: false`.
 
