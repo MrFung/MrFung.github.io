@@ -74,7 +74,7 @@ close_aside: false      ##是否在文章页面自动关闭侧边栏
 #### 首页相关
 index:
   expand: true              ## 首页文章是否展开。默认为展开式，显示 Read More。
-  excerpt_link: Read More
+  excerpt_link: 阅读全文
 
 #### 作者信息
 author:
@@ -98,7 +98,7 @@ author:
 #### 目录
 toc:
   article: true   ## 是否在文章中显示目录
-  aside: true      ## 是否在侧边栏显示目录
+  aside: false      ## 是否在侧边栏显示目录
 ## you can set both of the value to true of neither of them.
 ## if you don't want display contents in a specified post,you can modify `front-matter` and add `toc: false`.
 
