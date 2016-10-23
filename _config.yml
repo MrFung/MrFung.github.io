@@ -97,8 +97,8 @@ author:
 
 #### 目录
 toc:
-  article: false   ## 是否在文章中显示目录
-  aside: true      ## 是否在侧边栏显示目录
+  article: true   ## 是否在文章中显示目录
+  aside: false      ## 是否在侧边栏显示目录
 ## you can set both of the value to true of neither of them.
 ## if you don't want display contents in a specified post,you can modify `front-matter` and add `toc: false`.
 
