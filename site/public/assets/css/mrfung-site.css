@@ -69,27 +69,14 @@ body.mrfung-jekyll .site-nav {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 18px;
-}
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: #fff;
-  font-weight: 800;
-  white-space: nowrap;
-}
-.brand img {
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 50%;
-  object-fit: cover;
 }
 .nav-links {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 16px;
   color: rgba(255, 255, 255, 0.82);
   font-size: 0.92rem;
@@ -239,23 +226,31 @@ p, li { color: var(--mf-muted); }
   color: var(--mf-green);
   font-weight: 800;
 }
-.split {
+.profile-panel {
   display: grid;
-  grid-template-columns: 0.86fr 1.14fr;
-  gap: 32px;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 18px;
   align-items: stretch;
 }
-.portrait {
-  overflow: hidden;
+.profile-copy {
+  padding: clamp(24px, 5vw, 44px);
   border: 1px solid var(--mf-line);
   border-radius: 8px;
-  background: var(--mf-soft);
+  background: var(--mf-surface);
   box-shadow: var(--mf-shadow);
 }
-.portrait img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
+.profile-copy h2 { max-width: 760px; }
+.profile-copy .bilingual { margin-top: 18px; }
+.profile-metrics,
+.profile-aside {
+  align-content: stretch;
+}
+.profile-metrics {
+  grid-template-columns: 1fr;
+}
+.profile-aside {
+  display: grid;
+  gap: 12px;
 }
 .bio { display: grid; gap: 16px; }
 .bio-list,
@@ -380,16 +375,16 @@ body.mrfung-jekyll article .article-content {
   body.mrfung-jekyll .site-nav { position: relative; }
   .nav-inner {
     min-height: auto;
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 14px 0;
   }
-  .nav-links { flex-wrap: wrap; gap: 12px; }
+  .nav-links { justify-content: center; gap: 12px; }
   .mf-page-hero { padding-top: 178px; }
   .section { padding: 54px 0; }
   .section-heading { align-items: flex-start; flex-direction: column; }
   .feature-grid,
-  .split,
+  .profile-panel,
   .bilingual,
   .bio-list,
   .metric-grid,
