@@ -1,38 +1,32 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
-import Hero from "../components/Hero.astro";
 ---
 <BaseLayout title="关于 / About - MrFung" description="MrFung 的中英双语个人介绍。">
-  <Hero
-    compact
-    kicker="About MrFung"
-    title="关于 / About"
-    zh="全栈开发者，AICoding 实践者，独立产品构建者，也是在山野和水面上练习长期主义的人。"
-    en="Full-stack developer, AICoding practitioner, independent product builder, and someone who practices long-term thinking on trails and water."
-  />
+  <header class="page-intro">
+    <div class="section">
+      <p class="page-kicker">About</p>
+      <h1>关于 / About</h1>
+      <div class="bilingual intro-copy">
+        <p>全栈开发者，AICoding 实践者，独立产品构建者，也是在山野和水面上练习长期主义的人。</p>
+        <p>Full-stack developer, AICoding practitioner, independent product builder, and someone who practices long-term thinking on trails and water.</p>
+      </div>
+    </div>
+  </header>
   <main>
     <section class="section">
-      <div class="profile-panel">
-        <article class="prose-card">
+      <div class="about-layout">
+        <article class="prose-card about-main">
           <p class="meta-line">Profile</p>
           <h2>把技术、产品和行动力放在同一个节奏里。</h2>
           <div class="bilingual">
             <p>我喜欢从真实工作流出发，用全栈能力和 AICoding 把想法快速做成可用产品。相比做一次性的展示，我更在意工具能不能长期维护、持续迭代、真正帮用户少一点混乱。</p>
             <p>I like starting from real workflows, then using full-stack development and AICoding to turn ideas into usable products quickly. I care less about one-off demos and more about tools that can be maintained, improved, and genuinely reduce friction for users.</p>
           </div>
-          <div class="metric-grid">
-            <div class="metric"><strong>Full-stack</strong><span>全栈开发 / Product engineering</span></div>
-            <div class="metric"><strong>AICoding</strong><span>AI 辅助开发 / AI-assisted building</span></div>
-            <div class="metric"><strong>ITRA 430</strong><span>越野跑积分 / Trail running index</span></div>
-            <div class="metric"><strong>马拉松大众二级</strong><span>Marathon Amateur Level 2</span></div>
-            <div class="metric"><strong>有为青年</strong><span>Purpose-driven young builder</span></div>
-            <div class="metric"><strong>红十字救护员</strong><span>Red Cross first aider</span></div>
-          </div>
         </article>
         <aside class="profile-aside">
           <div class="bio-item">
             <strong>全栈 / Full-stack</strong>
-            <span>从产品页面、工具体验到发布资料，尽量把想法推进到真实可用。</span>
+            <span>从产品页面、工具体验到发布资料，把想法推进到真实可用。</span>
           </div>
           <div class="bio-item">
             <strong>AICoding</strong>
@@ -45,6 +39,22 @@ import Hero from "../components/Hero.astro";
         </aside>
       </div>
     </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <h2>身份与兴趣 / Identity & Interests</h2>
+        <p>把工程、产品和耐力运动放在同一个长期节奏里。</p>
+      </div>
+      <div class="metric-grid about-metrics">
+        <div class="metric"><strong>Full-stack</strong><span>全栈开发 / Product engineering</span></div>
+        <div class="metric"><strong>AICoding</strong><span>AI 辅助开发 / AI-assisted building</span></div>
+        <div class="metric"><strong>ITRA 430</strong><span>越野跑积分 / Trail running index</span></div>
+        <div class="metric"><strong>马拉松大众二级</strong><span>Marathon Amateur Level 2</span></div>
+        <div class="metric"><strong>有为青年</strong><span>Purpose-driven young builder</span></div>
+        <div class="metric"><strong>红十字救护员</strong><span>Red Cross first aider</span></div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="bilingual">
         <article class="lang-card">
