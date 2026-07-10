@@ -1,6 +1,6 @@
 {% if page.type == 'post' or page.type == 'photo' %}
  {% include _partial/head.html %}
-  <body>
+  <body class="mrfung-jekyll mrfung-{{ page.type }}">
     <header>
         {% include _partial/header.html %}
     </header>
@@ -16,7 +16,7 @@
 </html>
 {% elsif page.type == 'page' %}
     {% include _partial/head.html %}
-      <body>
+      <body class="mrfung-jekyll mrfung-{{ page.type }}">
         <header>
           {% include _partial/header.html %}
         </header>
@@ -29,7 +29,7 @@
      </html>
 {% elsif page.type == 'search' %}
 {% include _partial/head.html %}
-    <body>
+    <body class="mrfung-jekyll mrfung-{{ page.type }}">
       <header>
         {% include _partial/header.html %}
       </header>
@@ -42,7 +42,7 @@
    </html>
 {% elsif page.type == 'categories' or page.type == 'tags' or page.type == 'archives' %}
   {% include _partial/head.html %}
-    <body>
+    <body class="mrfung-jekyll mrfung-{{ page.type }}">
       <header>
         {% include _partial/header.html %}
       </header>
@@ -55,7 +55,7 @@
    </html>
 {% else %}
         {% include _partial/head.html %}
-  <body>
+  <body class="mrfung-jekyll mrfung-{{ page.type }}">
     <header>
         {% include _partial/header.html %}
     </header>
