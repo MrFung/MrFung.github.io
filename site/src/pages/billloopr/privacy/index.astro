@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../../components/BaseLayout.astro";
+import Hero from "../../../components/Hero.astro";
+
+const sections = [
+  {
+    title: "应用内存储的信息 / Information stored in the app",
+    zh: "BillLoopr 不需要账号即可使用。App 可能会在你的设备上保存你输入的客户、项目、时间记录、发票记录、收入记录、备注、货币、费率、偏好设置和相关配置。",
+    en: "BillLoopr is designed to work without an account. The app may store information you enter on your device, including clients, projects, time entries, invoice records, income records, notes, currencies, rates, app preferences, and related settings."
+  },
+  {
+    title: "本地存储 / Local storage",
+    zh: "你的 App 数据主要使用 Apple 平台存储技术保存在设备本地。BillLoopr 不运营自己的服务器来同步或收集你的 App 记录。",
+    en: "Your app data is stored locally on your device using Apple platform storage technologies. BillLoopr does not operate its own server for syncing or collecting your app records."
+  },
+  {
+    title: "无跟踪和广告 / No tracking or advertising",
+    zh: "BillLoopr 不展示第三方广告，不接入第三方分析 SDK，也不会跨 App 或网站跟踪你。",
+    en: "BillLoopr does not show third-party ads, does not use third-party analytics SDKs, and does not track you across apps or websites."
+  },
+  {
+    title: "分享和导出 / Sharing and exports",
+    zh: "当你主动导出、分享、复制或发送发票和记录时，所选信息可能会通过你选择的目标离开 App，例如邮件、文件、信息或其它 App。这些目标由你和相关服务提供商控制。",
+    en: "When you choose to export, share, copy, or send invoices or records, the selected information may leave the app through the destination you choose, such as Mail, Files, Messages, or another app. Those destinations are controlled by you and by the relevant service providers."
+  },
+  {
+    title: "支持请求 / Support requests",
+    zh: "如果你通过邮件联系支持，我们可能会收到你的邮箱地址和你主动提供的内容。这些信息仅用于回复支持请求。",
+    en: "If you contact support by email, we may receive your email address and any information you choose to include. This information is used only to respond to your support request."
+  },
+  {
+    title: "付款和财务信息 / Payments and financial information",
+    zh: "BillLoopr 用于帮助整理工时和发票记录。它不处理客户付款，不提供银行服务，也不提供税务、法律或会计建议。",
+    en: "BillLoopr helps you prepare time and invoice records. It does not process client payments, does not provide banking services, and does not provide tax, legal, or accounting advice."
+  },
+  {
+    title: "删除数据 / Deleting data",
+    zh: "你可以在 App 内通过可用的删除入口删除客户、项目、发票、时间记录和相关数据。你也可以通过删除 App 来移除本地保存的 App 数据。",
+    en: "You can delete clients, projects, invoices, time entries, and related records inside the app where deletion controls are available. You can also delete all locally stored app data by deleting the app from your device."
+  },
+  {
+    title: "儿童 / Children",
+    zh: "BillLoopr 不面向儿童，主要用于独立工作者和业务记录场景。",
+    en: "BillLoopr is not directed to children and is intended for independent professionals and business use."
+  },
+  {
+    title: "政策更新 / Changes to this policy",
+    zh: "当 App 功能变化时，我们可能会更新本政策。发生重要更新时，页面顶部的生效日期会同步调整。",
+    en: "We may update this policy when the app changes. The effective date above will be updated when material changes are made."
+  }
+];
+---
+<BaseLayout title="隐私政策 / Privacy Policy - BillLoopr" description="BillLoopr privacy policy in Chinese and English.">
+  <Hero compact kicker="BillLoopr" title="隐私政策 / Privacy Policy" zh="生效日期：2026 年 7 月 10 日" en="Effective date: July 10, 2026" />
+  <main class="section">
+    <article class="prose-card content-stack">
+      <div class="bilingual">
+        <p>BillLoopr 是由 MrFung 开发的计费工时、项目记录和发票准备工具。本政策说明 App 会处理哪些信息以及如何使用这些信息。</p>
+        <p>BillLoopr is a billable time tracking, project records, and invoice preparation app developed by MrFung. This policy explains what information the app handles and how it is used.</p>
+      </div>
+      {sections.map((section) => (
+        <section class="callout">
+          <h3>{section.title}</h3>
+          <div class="bilingual">
+            <p>{section.zh}</p>
+            <p>{section.en}</p>
+          </div>
+        </section>
+      ))}
+      <section class="callout">
+        <h3>联系 / Contact</h3>
+        <div class="bilingual">
+          <p>如果你有隐私问题，请联系：<a href="mailto:2578033436@qq.com">2578033436@qq.com</a></p>
+          <p>If you have privacy questions, contact: <a href="mailto:2578033436@qq.com">2578033436@qq.com</a></p>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>

@@ -1,0 +1,40 @@
+---
+const {
+  title = "MrFung - Full-stack & AICoding",
+  description = "MrFung 的个人主页：全栈开发、AICoding、独立产品、BillLoopr 支持与隐私入口。"
+} = Astro.props;
+---
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{title}</title>
+    <meta name="description" content={description}>
+    <link rel="stylesheet" href="/assets/css/mrfung-site.css?v=20260710c">
+  </head>
+  <body class="mf-static-page">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="nav-inner">
+        <a class="brand" href="/">
+          <img src="/assets/img/MrFung.jpg" alt="MrFung">
+          <span>MrFung</span>
+        </a>
+        <div class="nav-links">
+          <a href="/archives/">归档 / Archive</a>
+          <a href="/about/">关于 / About</a>
+          <a href="/billloopr/">BillLoopr</a>
+          <a href="/billloopr/support/">支持 / Support</a>
+          <a href="mailto:2578033436@qq.com">联系 / Contact</a>
+        </div>
+      </div>
+    </nav>
+    <slot />
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© 2026 MrFung. GitHub Pages.</span>
+        <span><a href="/billloopr/privacy/">隐私 / Privacy</a> · <a href="/billloopr/support/">支持 / Support</a></span>
+      </div>
+    </footer>
+  </body>
+</html>

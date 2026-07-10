@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../../../components/BaseLayout.astro";
+import Hero from "../../../components/Hero.astro";
+---
+<BaseLayout title="支持 / Support - BillLoopr" description="BillLoopr support page in Chinese and English.">
+  <Hero
+    compact
+    kicker="BillLoopr"
+    title="支持 / Support"
+    zh="用于 BillLoopr App 支持、隐私问题和数据删除指引。"
+    en="For BillLoopr app support, privacy questions, and data deletion guidance."
+  />
+  <main>
+    <section class="section">
+      <div class="bilingual">
+        <article class="contact-card">
+          <span class="lang-label">中文</span>
+          <h3>联系支持</h3>
+          <p>支持邮箱：<a href="mailto:2578033436@qq.com">2578033436@qq.com</a></p>
+          <p>请尽量附上 App 版本、设备型号、系统版本和简要问题描述。通常会在 3-5 个工作日内回复。</p>
+        </article>
+        <article class="contact-card">
+          <span class="lang-label">English</span>
+          <h3>Contact support</h3>
+          <p>Support email: <a href="mailto:2578033436@qq.com">2578033436@qq.com</a></p>
+          <p>Please include your app version, device model, system version, and a short description of the issue when possible. We usually respond within 3-5 business days.</p>
+        </article>
+      </div>
+    </section>
+    <section class="section">
+      <div class="bilingual">
+        <article class="prose-card">
+          <span class="lang-label">中文</span>
+          <h3>常见帮助主题</h3>
+          <ul>
+            <li>记录可计费工时前，可以先创建客户和项目。</li>
+            <li>使用计时器记录工作时段，并在开票前检查记录。</li>
+            <li>使用发票记录来准备、预览、分享和管理计费文档。</li>
+            <li>通过 App 内删除入口移除客户、项目、发票、时间记录或相关数据。</li>
+          </ul>
+        </article>
+        <article class="prose-card">
+          <span class="lang-label">English</span>
+          <h3>Common help topics</h3>
+          <ul>
+            <li>Create clients and projects before recording billable time.</li>
+            <li>Use the timer to record work sessions and review the result before invoicing.</li>
+            <li>Use invoice records to prepare, preview, share, and manage billing documents.</li>
+            <li>Use in-app delete controls to remove clients, projects, invoices, time entries, or related records when available.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <section class="section">
+      <article class="prose-card content-stack">
+        <section class="callout">
+          <h3>数据与隐私 / Data and privacy</h3>
+          <div class="bilingual">
+            <p>BillLoopr 不需要账号即可使用。除非你主动导出或分享，App 记录主要保存在你的设备本地。</p>
+            <p>BillLoopr is designed to work without an account. App records are stored locally on your device unless you choose to export or share them.</p>
+          </div>
+          <p><a href="/billloopr/privacy/">隐私政策 / Privacy Policy</a></p>
+        </section>
+        <section class="callout">
+          <h3>非财务建议 / Not financial advice</h3>
+          <div class="bilingual">
+            <p>BillLoopr 帮助整理时间、项目、收入和发票记录，不提供税务、法律、会计、银行或支付处理服务。</p>
+            <p>BillLoopr helps organize time, project, income, and invoice records. It does not provide tax, legal, accounting, banking, or payment processing services.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+  </main>
+</BaseLayout>

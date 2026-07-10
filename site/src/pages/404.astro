@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+---
+<BaseLayout title="404 - MrFung">
+  <Hero compact kicker="404" title="Page not found" zh="这个页面可能已经移动或不存在。" en="This page may have moved or no longer exists." />
+  <main class="section">
+    <div class="bilingual">
+      <article class="lang-card">
+        <span class="lang-label">中文</span>
+        <h3>回到可用入口</h3>
+        <p>你可以回到首页，或者查看 BillLoopr 的支持和隐私页面。</p>
+        <p><a href="/">返回首页</a></p>
+      </article>
+      <article class="lang-card">
+        <span class="lang-label">English</span>
+        <h3>Use a current entry</h3>
+        <p>You can return home or open the BillLoopr support and privacy pages.</p>
+        <p><a href="/billloopr/support/">Open support</a></p>
+      </article>
+    </div>
+  </main>
+</BaseLayout>
