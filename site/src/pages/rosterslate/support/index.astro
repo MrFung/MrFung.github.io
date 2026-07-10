@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../../../components/BaseLayout.astro";
+import Hero from "../../../components/Hero.astro";
+---
+<BaseLayout title="支持 / Support - RosterSlate" description="RosterSlate support page in Chinese and English.">
+  <Hero
+    compact
+    kicker="RosterSlate"
+    title="支持 / Support"
+    zh="用于 RosterSlate App 支持、隐私问题和数据删除指引。"
+    en="For RosterSlate app support, privacy questions, and data deletion guidance."
+  />
+  <main>
+    <section class="section">
+      <div class="bilingual">
+        <article class="contact-card">
+          <span class="lang-label">中文</span>
+          <h3>联系支持</h3>
+          <p>支持邮箱：<a href="mailto:2578033436@qq.com">2578033436@qq.com</a></p>
+          <p>请尽量附上 App 版本、设备型号、系统版本和简要问题描述。通常会在 3-5 个工作日内回复。</p>
+        </article>
+        <article class="contact-card">
+          <span class="lang-label">English</span>
+          <h3>Contact support</h3>
+          <p>Support email: <a href="mailto:2578033436@qq.com">2578033436@qq.com</a></p>
+          <p>Please include your app version, device model, system version, and a short description of the issue when possible. We usually respond within 3-5 business days.</p>
+        </article>
+      </div>
+    </section>
+    <section class="section">
+      <div class="bilingual">
+        <article class="prose-card">
+          <span class="lang-label">中文</span>
+          <h3>常见帮助主题</h3>
+          <ul>
+            <li>创建工作单位、人员和班次类型后，可以录入自己的班次或全员班表。</li>
+            <li>使用“只看我”或人员筛选，快速查看自己的班次和同班人员。</li>
+            <li>导入图片班表后，请先检查识别结果，再确认写入排班记录。</li>
+            <li>开启通知后，可以为自己的班次设置上班前提醒。</li>
+            <li>通过 App 内删除入口移除工作单位、人员、班次、提醒规则或相关数据。</li>
+          </ul>
+        </article>
+        <article class="prose-card">
+          <span class="lang-label">English</span>
+          <h3>Common help topics</h3>
+          <ul>
+            <li>Create a workplace, people, and shift types before entering your shifts or full staff rosters.</li>
+            <li>Use the Me view or person filters to quickly review your shifts and coworkers.</li>
+            <li>After importing a roster image, review recognized results before saving them as shift records.</li>
+            <li>Allow notifications to receive reminders before your shifts.</li>
+            <li>Use in-app delete controls to remove workplaces, people, shifts, reminder rules, or related data when available.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+    <section class="section">
+      <article class="prose-card content-stack">
+        <section class="callout">
+          <h3>数据与隐私 / Data and privacy</h3>
+          <div class="bilingual">
+            <p>RosterSlate 不需要账号即可使用。除非你主动导出或分享，排班记录主要保存在你的设备本地。</p>
+            <p>RosterSlate is designed to work without an account. Roster records are stored locally on your device unless you choose to export or share them.</p>
+          </div>
+          <p><a href="/rosterslate/privacy/">隐私政策 / Privacy Policy</a></p>
+        </section>
+        <section class="callout">
+          <h3>非医疗或工资服务 / Not medical or payroll services</h3>
+          <div class="bilingual">
+            <p>RosterSlate 是通用排班工具，不提供医疗诊断、临床决策、工资发放、税务、法律或银行服务。</p>
+            <p>RosterSlate is a general roster planning tool. It does not provide medical diagnosis, clinical decisions, payroll, tax, legal, or banking services.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+  </main>
+</BaseLayout>

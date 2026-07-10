@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import Hero from "../../components/Hero.astro";
+---
+<BaseLayout title="RosterSlate - MrFung" description="RosterSlate support and privacy entry in Chinese and English.">
+  <Hero
+    home
+    kicker="Rosters · Shifts · Reminders"
+    title="RosterSlate"
+    zh="面向轮班工作者的私密排班表、同班人员和上班提醒工具。"
+    en="A private roster, coworker, and shift reminder planner for shift workers."
+  >
+    <div class="mf-actions">
+      <a class="button primary" href="/rosterslate/support/">支持 / Support</a>
+      <a class="button" href="/rosterslate/privacy/">隐私政策 / Privacy</a>
+    </div>
+  </Hero>
+
+  <main>
+    <section class="section">
+      <div class="section-heading">
+        <h2>把班表变清楚 / Clearer Shift Planning</h2>
+        <p>从全员班表到只看自己，把同班人员、地点、时间和提醒集中管理。</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <div>
+            <small>Roster</small>
+            <h3>排班 / Roster</h3>
+            <p>手动录入或导入排班表，保留全员视角，也能切换到个人视角。</p>
+            <p>Enter or import rosters, keep the full team view, and switch to your own shifts.</p>
+          </div>
+        </article>
+        <article class="feature">
+          <div>
+            <small>Reminders</small>
+            <h3>提醒 / Reminders</h3>
+            <p>为自己的班次设置上班提醒，也可选择写入 Apple Calendar。</p>
+            <p>Set shift reminders for yourself and optionally add confirmed shifts to Apple Calendar.</p>
+          </div>
+        </article>
+        <article class="feature">
+          <div>
+            <small>Privacy</small>
+            <h3>本地优先 / Local First</h3>
+            <p>无需账号、无广告、默认不追踪；相机和图片识别在设备上处理。</p>
+            <p>No account, no ads, no tracking by default; camera and image recognition are handled on device.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bilingual">
+        <article class="lang-card">
+          <span class="lang-label">中文</span>
+          <h3>隐私政策</h3>
+          <p>RosterSlate 主要把排班数据保存在设备本地，可选使用 iCloud 私密同步，并只在用户授权时使用相机或日历。</p>
+          <p><a href="/rosterslate/privacy/">查看隐私政策</a></p>
+        </article>
+        <article class="lang-card">
+          <span class="lang-label">English</span>
+          <h3>Privacy Policy</h3>
+          <p>RosterSlate stores roster data primarily on your device, optionally uses private iCloud sync, and only uses camera or calendar access when you allow it.</p>
+          <p><a href="/rosterslate/privacy/">Read privacy policy</a></p>
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
