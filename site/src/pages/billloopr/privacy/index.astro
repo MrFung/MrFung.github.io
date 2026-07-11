@@ -5,13 +5,18 @@ import Hero from "../../../components/Hero.astro";
 const sections = [
   {
     title: "应用内存储的信息 / Information stored in the app",
-    zh: "BillLoopr 不需要账号即可使用。App 可能会在你的设备上保存你输入的客户、项目、时间记录、发票记录、收入记录、备注、货币、费率、偏好设置和相关配置。",
-    en: "BillLoopr is designed to work without an account. The app may store information you enter on your device, including clients, projects, time entries, invoice records, income records, notes, currencies, rates, app preferences, and related settings."
+    zh: "BillLoopr 无需注册 BillLoopr 账号即可使用。App 可能会在你的设备上保存你输入的客户、项目、时间记录、发票记录、收入记录、备注、货币、费率、偏好设置和相关配置。",
+    en: "BillLoopr works without creating a BillLoopr account. The app may store information you enter on your device, including clients, projects, time entries, invoice records, income records, notes, currencies, rates, app preferences, and related settings."
   },
   {
     title: "本地存储 / Local storage",
-    zh: "你的 App 数据主要使用 Apple 平台存储技术保存在设备本地。BillLoopr 不运营自己的服务器来同步或收集你的 App 记录。",
-    en: "Your app data is stored locally on your device using Apple platform storage technologies. BillLoopr does not operate its own server for syncing or collecting your app records."
+    zh: "你的 App 数据使用 Apple 平台存储技术保存在设备本地。iCloud 可用时，数据也可能通过你的 Apple 账号同步到你的私有 iCloud 数据库。BillLoopr 不运营自己的服务器来同步或收集你的 App 记录。",
+    en: "Your app data is stored locally on your device using Apple platform storage technologies. When iCloud is available, it may also sync through your Apple Account to your private iCloud database. BillLoopr does not operate its own server for syncing or collecting your app records."
+  },
+  {
+    title: "私有 iCloud 同步 / Private iCloud sync",
+    zh: "BillLoopr 使用 Apple 的 CloudKit 在你的设备之间同步支持的数据。数据保存在与你的 Apple 账号关联的私有数据库中，由 Apple 提供和管理 iCloud 服务。App 显示的 iCloud 账号可用状态不代表每项更改都已完成同步。",
+    en: "BillLoopr uses Apple's CloudKit to sync supported data across your devices. The data is kept in a private database associated with your Apple Account, and Apple provides and manages the iCloud service. An available iCloud account status shown by the app does not confirm that every change has finished syncing."
   },
   {
     title: "无跟踪和广告 / No tracking or advertising",
@@ -35,8 +40,8 @@ const sections = [
   },
   {
     title: "删除数据 / Deleting data",
-    zh: "你可以在 App 内通过可用的删除入口删除客户、项目、发票、时间记录和相关数据。你也可以通过删除 App 来移除本地保存的 App 数据。",
-    en: "You can delete clients, projects, invoices, time entries, and related records inside the app where deletion controls are available. You can also delete all locally stored app data by deleting the app from your device."
+    zh: "你可以在 App 内通过可用的删除入口删除客户、项目、发票、时间记录和相关数据。iCloud 同步可用时，App 内的删除会同步到你的其它设备。删除某台设备上的 App 只会移除该设备的本地副本，不一定会删除仍保存在 iCloud 或其它设备上的数据。",
+    en: "You can delete clients, projects, invoices, time entries, and related records inside the app where deletion controls are available. When iCloud sync is available, in-app deletions sync to your other devices. Deleting the app from one device removes that device's local copy, but does not necessarily delete data that remains in iCloud or on your other devices."
   },
   {
     title: "儿童 / Children",
@@ -51,7 +56,7 @@ const sections = [
 ];
 ---
 <BaseLayout title="隐私政策 / Privacy Policy - BillLoopr" description="BillLoopr privacy policy in Chinese and English.">
-  <Hero compact kicker="BillLoopr" title="隐私政策 / Privacy Policy" zh="生效日期：2026 年 7 月 10 日" en="Effective date: July 10, 2026" />
+  <Hero compact kicker="BillLoopr" title="隐私政策 / Privacy Policy" zh="生效日期：2026 年 7 月 11 日" en="Effective date: July 11, 2026" />
   <main class="section">
     <article class="prose-card content-stack">
       <div class="bilingual">
