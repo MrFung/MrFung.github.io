@@ -1,0 +1,23 @@
+---
+import { LANGUAGES, localizedPath } from '../i18n/languages.mjs';
+const { locale, routePath, label } = Astro.props;
+---
+<label class="language-switcher">
+  <span>{label}</span>
+  <select data-language-switcher aria-label={label}>
+    {LANGUAGES.map((language) => (
+      <option value={language.code} selected={language.code === locale} data-path={localizedPath(language.code, routePath)}>{language.nativeName}</option>
+    ))}
+  </select>
+</label>
+<script>
+  document.querySelectorAll('[data-language-switcher]').forEach((element) => {
+    element.addEventListener('change', (event) => {
+      const select = event.currentTarget;
+      if (!(select instanceof HTMLSelectElement)) return;
+      localStorage.setItem('mrfung.siteLanguage', select.value);
+      const path = select.selectedOptions[0]?.dataset.path;
+      if (path) window.location.assign(path);
+    });
+  });
+</script>

@@ -1,14 +1,13 @@
 ---
-const { kicker, title, zh, en, compact = false, home = false } = Astro.props;
+const { kicker, title, copy, zh, en, compact = false, home = false } = Astro.props;
 const className = `mf-page-hero${compact ? " compact" : ""}${home ? " home" : ""}`;
 ---
 <header class={className}>
   <div class="mf-hero-inner">
     <p class="mf-kicker">{kicker}</p>
     <h1>{title}</h1>
-    <div class="mf-hero-copy bilingual">
-      <p>{zh}</p>
-      <p>{en}</p>
+    <div class="mf-hero-copy">
+      <p>{copy ?? zh ?? en}</p>
     </div>
     <slot />
   </div>

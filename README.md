@@ -8,7 +8,10 @@
 - 静态导出
 - GitHub Pages
 - 自动跟随系统浅色 / 深色模式
-- 页面内容中英双语同屏展示
+- 固定文案支持 12 种语言，一次只展示当前语言
+- 首次访问跟随浏览器语言，支持全站手动切换并记住选择
+- 文章创作内容保持发布时原文；现有自我介绍保留中英双语原文
+- BillLoopr 与 RosterSlate 可直接打开与 App 设置一致的语言页面
 
 ## 目录
 
@@ -23,6 +26,8 @@
 cd site
 npm install
 npm run build
+npm run test:unit
+npm run test:e2e
 ```
 
 构建完成后，将 `site/dist` 内容复制到仓库根目录并提交。
