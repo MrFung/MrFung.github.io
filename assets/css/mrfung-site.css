@@ -128,6 +128,11 @@ body.mrfung-jekyll .site-nav {
   justify-content: center;
   gap: 18px;
 }
+
+.language-switcher { display: flex; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.86rem; }
+.language-switcher select { min-height: 2.5rem; max-width: 12rem; border: 1px solid var(--line); border-radius: 999px; padding: 0 0.75rem; color: var(--text); background: var(--surface); }
+[dir="rtl"] .nav-inner, [dir="rtl"] .mf-actions, [dir="rtl"] .footer-inner { direction: rtl; }
+[dir="rtl"] ul { padding-inline-start: 0; padding-inline-end: 1.25rem; }
 .nav-links {
   display: flex;
   align-items: center;
