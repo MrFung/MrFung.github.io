@@ -10,8 +10,17 @@ import Hero from "../components/Hero.astro";
     zh="全栈开发者，AICoding 实践者，独立产品打磨者。把工程能力、产品直觉和耐力运动里的长期主义放在一起，做真实能用、能持续维护的工具。"
     en="Full-stack builder, AICoding practitioner, and independent product maker. I combine engineering, product taste, and endurance-sport discipline to build useful tools that can be maintained for the long run."
   >
+    <div class="hero-tag-grid" aria-label="Profile highlights">
+      <span>ITRA 430</span>
+      <span>马拉松大众二级 / Marathon Amateur Level 2</span>
+      <span>有为青年 / Purpose-driven builder</span>
+      <span>红十字救护员 / Red Cross first aider</span>
+      <span>越野跑 / Trail running</span>
+      <span>划桨板 / Paddleboarding</span>
+    </div>
     <div class="mf-actions">
       <a class="button primary" href="/apps/">应用 / Apps</a>
+      <a class="button" href="/writing/">文章 / Writing</a>
       <a class="button" href="/about/">关于 / About</a>
     </div>
   </Hero>
@@ -19,19 +28,10 @@ import Hero from "../components/Hero.astro";
   <main>
     <section class="section">
       <div class="section-heading">
-        <h2>产品与项目 / Apps & Projects</h2>
-        <p>具体应用、隐私政策和支持页面统一放在应用目录里，顶部导航保持为稳定栏目。</p>
+        <h2>入口 / Directory & Writing</h2>
+        <p>具体应用、隐私政策和支持页面统一放在应用目录里；文章放在独立栏目，顶部导航保持稳定。</p>
       </div>
       <div class="feature-grid">
-        <article class="feature">
-          <div>
-            <small>Billable Time</small>
-            <h3>BillLoopr</h3>
-            <p>独立工作者使用的计费工时、项目记录和发票准备工具。</p>
-            <p>Billable time tracking, project records, and invoice preparation for independent professionals.</p>
-          </div>
-          <a href="/billloopr/">打开 / Open</a>
-        </article>
         <article class="feature">
           <div>
             <small>Directory</small>
@@ -40,6 +40,15 @@ import Hero from "../components/Hero.astro";
             <p>A single directory for product pages, privacy policies, and support entries.</p>
           </div>
           <a href="/apps/">查看 / View</a>
+        </article>
+        <article class="feature">
+          <div>
+            <small>Writing</small>
+            <h3>文章 / Writing</h3>
+            <p>后续的技术记录、产品复盘和运动实践会集中放在这里。</p>
+            <p>Technical notes, product retrospectives, and endurance practice will live here.</p>
+          </div>
+          <a href="/writing/">阅读 / Read</a>
         </article>
         <article class="feature">
           <div>
@@ -54,23 +63,19 @@ import Hero from "../components/Hero.astro";
     </section>
 
     <section class="section">
-      <div class="profile-panel">
-        <div class="profile-copy">
-          <p class="meta-line">Profile</p>
-          <h2>全栈开发、AICoding，以及山野里的长期主义。</h2>
-          <div class="bilingual">
-            <p>我关注全栈开发、AICoding、独立产品和真实工作流，也喜欢把越野跑、马拉松和水上运动里的节奏感带回到产品打磨里。</p>
-            <p>I focus on full-stack development, AICoding, independent products, and practical workflows. Trail running, marathons, and paddleboarding shape how I think about pace, resilience, and craft.</p>
+      <div class="section-heading">
+        <h2>文章 / Writing</h2>
+        <p>先放一篇自我介绍作为占位，后续可以继续扩展成技术、产品和运动专题。</p>
+      </div>
+      <div class="writing-list">
+        <article class="article-card">
+          <div>
+            <span class="lang-label">Placeholder Article</span>
+            <h3>自我介绍：把工程、AICoding 和耐力运动放在一起</h3>
+            <p>这篇文章先作为写作区占位，保持站点结构完整，也让后续新增文章有稳定入口。</p>
           </div>
-        </div>
-        <div class="metric-grid profile-metrics">
-          <div class="metric"><strong>ITRA 430</strong><span>越野跑积分 / Trail running index</span></div>
-          <div class="metric"><strong>马拉松大众二级</strong><span>Marathon Amateur Level 2</span></div>
-          <div class="metric"><strong>有为青年</strong><span>Purpose-driven young builder</span></div>
-          <div class="metric"><strong>红十字救护员</strong><span>Red Cross first aider</span></div>
-          <div class="metric"><strong>越野跑</strong><span>Trail running</span></div>
-          <div class="metric"><strong>划桨板</strong><span>Paddleboarding</span></div>
-        </div>
+          <a href="/writing/self-introduction/">阅读 / Read</a>
+        </article>
       </div>
     </section>
 
