@@ -6,6 +6,7 @@ const dataUrl = new URL(
   '../../src/content/kmpThreePlatformPerformance.mjs',
   import.meta.url
 );
+const playwrightConfigUrl = new URL('../../playwright.config.ts', import.meta.url);
 
 test('KMP article publishes the verified three-platform dataset', async () => {
   const source = await readFile(dataUrl, 'utf8').catch(() => '');
@@ -47,4 +48,11 @@ test('bar widths are bounded', async () => {
   assert.equal(barPercent(150, 100), 100);
   assert.equal(barPercent(-1, 100), 0);
   assert.equal(barPercent(1, 0), 0);
+});
+
+test('Playwright can isolate its local server port', async () => {
+  const source = await readFile(playwrightConfigUrl, 'utf8');
+
+  assert.match(source, /PLAYWRIGHT_PORT/);
+  assert.match(source, /127\.0\.0\.1:\$\{port\}/);
 });

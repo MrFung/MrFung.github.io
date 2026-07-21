@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../components/BaseLayout.astro';
+import KmpThreePlatformPerformanceArticle from '../../../components/KmpThreePlatformPerformanceArticle.astro';
+import { KMP_ARTICLE_META } from '../../../content/kmpThreePlatformPerformance.mjs';
+---
+
+<BaseLayout
+  title={`${KMP_ARTICLE_META.title} - MrFung`}
+  description={KMP_ARTICLE_META.description}
+>
+  <KmpThreePlatformPerformanceArticle />
+</BaseLayout>

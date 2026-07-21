@@ -1,0 +1,54 @@
+---
+import { barPercent } from '../content/kmpThreePlatformPerformance.mjs';
+
+const {
+  id,
+  title,
+  subtitle,
+  rows,
+  analysis,
+  lowerIsBetter = true,
+} = Astro.props;
+const maximum = Math.max(...rows.map(({ value }) => value));
+---
+
+<figure class="kmp-paper-chart" id={id} data-performance-chart>
+  <div class="kmp-paper-chart__heading">
+    <div>
+      <p class="kmp-paper-eyebrow">Measured on device</p>
+      <h3>{title}</h3>
+    </div>
+    <p>{subtitle} · {lowerIsBetter ? '越低越好' : '越高越好'}</p>
+  </div>
+
+  <div class="kmp-paper-bars" aria-hidden="true">
+    {rows.map((row) => (
+      <div class="kmp-paper-bar" data-scheme={row.scheme}>
+        <div class="kmp-paper-bar__label">
+          <span>{row.label}</span>
+          <strong>{row.formattedValue}</strong>
+        </div>
+        <div class="kmp-paper-bar__track">
+          <span
+            style={`--kmp-bar-width: ${barPercent(row.value, maximum).toFixed(2)}%`}
+          ></span>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="kmp-paper-table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">方案与指标</th><th scope="col">实测值</th></tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr><th scope="row">{row.label}</th><td>{row.formattedValue}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <figcaption><strong>性能分析：</strong>{analysis}</figcaption>
+</figure>

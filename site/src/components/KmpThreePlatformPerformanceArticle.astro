@@ -1,0 +1,224 @@
+---
+import KmpComparisonChart from './KmpComparisonChart.astro';
+import {
+  ANDROID_ENVIRONMENT,
+  ANDROID_RESULTS,
+  CPF_TOOLCHAIN,
+  HARMONY_ENVIRONMENT,
+  HARMONY_RESULTS,
+  IOS_ENVIRONMENT,
+  IOS_RESULTS,
+  KMP_ARTICLE_META,
+  KMP_SCENARIO,
+  PLATFORM_SELECTIONS,
+  TECH_REFERENCES,
+} from '../content/kmpThreePlatformPerformance.mjs';
+import '../styles/kmpThreePlatformPerformance.css';
+
+const fixed = (value, digits = 3) => Number(value).toFixed(digits);
+const perSecond = (value) => Math.round(value).toLocaleString('zh-CN');
+
+const iosLatencyRows = IOS_RESULTS.flatMap((result) => [
+  {
+    label: `${result.label} · 常态第 95 百分位`,
+    value: result.steadyP95Ms,
+    formattedValue: `${fixed(result.steadyP95Ms)} 毫秒`,
+    scheme: result.scheme,
+  },
+  {
+    label: `${result.label} · 突发第 99 百分位`,
+    value: result.burstP99Ms,
+    formattedValue: `${fixed(result.burstP99Ms)} 毫秒`,
+    scheme: result.scheme,
+  },
+]);
+const iosThroughputRows = IOS_RESULTS.flatMap((result) => [
+  {
+    label: `${result.label} · 常态`,
+    value: result.steadyBatchesPerSecond,
+    formattedValue: `${perSecond(result.steadyBatchesPerSecond)} 批/秒`,
+    scheme: result.scheme,
+  },
+  {
+    label: `${result.label} · 突发`,
+    value: result.burstBatchesPerSecond,
+    formattedValue: `${perSecond(result.burstBatchesPerSecond)} 批/秒`,
+    scheme: result.scheme,
+  },
+]);
+const iosMemoryRows = IOS_RESULTS.map((result) => ({
+  label: result.label,
+  value: result.peakMemoryMiB,
+  formattedValue: `${fixed(result.peakMemoryMiB, 2)} MiB`,
+  scheme: result.scheme,
+}));
+const androidLatencyRows = ANDROID_RESULTS.flatMap((result) => [
+  {
+    label: `${result.label} · 常态第 95 百分位`,
+    value: result.steadyP95Ms,
+    formattedValue: `${fixed(result.steadyP95Ms)} 毫秒`,
+    scheme: result.scheme,
+  },
+  {
+    label: `${result.label} · 突发第 99 百分位`,
+    value: result.burstP99Ms,
+    formattedValue: `${fixed(result.burstP99Ms)} 毫秒`,
+    scheme: result.scheme,
+  },
+]);
+const androidMemoryRows = ANDROID_RESULTS.map((result) => ({
+  label: result.label,
+  value: result.peakPssMiB,
+  formattedValue: `${fixed(result.peakPssMiB, 2)} MiB`,
+  scheme: result.scheme,
+}));
+const harmonyMemoryRows = HARMONY_RESULTS.fullProcess.map((result) => ({
+  label: result.label,
+  value: result.peakPssMiB,
+  formattedValue: `${fixed(result.peakPssMiB, 2)} MiB`,
+  scheme: result.scheme,
+}));
+const harmonyOptimizationRows = [
+  HARMONY_RESULTS.fullProcess.find(({ id }) => id === 'knoi-before'),
+  HARMONY_RESULTS.fullProcess.find(({ id }) => id === 'knoi-after'),
+  HARMONY_RESULTS.fullProcess.find(({ id }) => id === 'cpf'),
+].map((result) => ({
+  label: result.label,
+  value: result.peakPssMiB,
+  formattedValue: `${fixed(result.peakPssMiB, 2)} MiB`,
+  scheme: result.scheme,
+}));
+const harmonyStabilityRows = [
+  ['开始采样', HARMONY_RESULTS.cpf.initialPssMiB],
+  ['常态输入最高点', HARMONY_RESULTS.cpf.steadyPeakPssMiB],
+  ['高压输入最高点', HARMONY_RESULTS.cpf.stressPeakPssMiB],
+  ['停止输入后恢复', HARMONY_RESULTS.cpf.recoveryPssMiB],
+].map(([label, value], index) => ({
+  label,
+  value,
+  formattedValue: `${fixed(value, 2)} MiB`,
+  scheme: index === 3 ? 'native' : 'optimized',
+}));
+
+const scenarioMetrics = [
+  [`${KMP_SCENARIO.rows.toLocaleString('zh-CN')} 行`, '实时数据规模'],
+  [`${KMP_SCENARIO.columns} 字段`, '单行字段数'],
+  [`${KMP_SCENARIO.visibleRows} 行`, '可视区域'],
+  [`${KMP_SCENARIO.maximumFieldsPerBatch} 项`, '单批最高变化'],
+  [`${KMP_SCENARIO.steadyBatchesPerSecond} 批/秒`, '常态输入'],
+  [`${KMP_SCENARIO.burstBatchesPerSecond} 批/秒`, '高压输入'],
+];
+
+const memoryPrinciples = [
+  ['队列必须有界', '消费落后时按键合并、最新值覆盖或执行明确丢弃策略，不能让输入批次无限排队。'],
+  ['边界传扁平批量数据', '跨语言调用传二进制批次、索引和长度，不逐字段创建两套对象图。'],
+  ['缓冲区复用且不越界持有', '调用方预分配，Core 只在同步调用期间借用；返回后不保存外部指针。'],
+  ['只输出增量 Patch', '状态只保留一份，界面只接收变化范围，不在每个批次复制完整表。'],
+  ['界面侧只保留最新待渲染值', '渲染速度低于输入速度时合并刷新，避免 UI 反向撑大 Core 队列。'],
+  ['生命周期必须显式闭环', '取消订阅、切换数据源、进入后台和退出页面都执行明确的停止与释放。'],
+  ['短测与长测回答不同问题', '短测看尾部延迟和吞吐；长测看内存斜率、最高点、恢复值和积压量。'],
+];
+---
+
+<header class="kmp-paper-hero">
+  <div class="kmp-paper-hero__inner">
+    <p class="kmp-paper-hero__kicker">Kotlin Multiplatform · On-device Benchmark</p>
+    <h1>{KMP_ARTICLE_META.title}</h1>
+    <p class="kmp-paper-hero__lead">一套 Kotlin 业务 Core 可以覆盖三端，但高频边界不应强求完全相同。本文用真实设备数据回答：哪里可以直接调用，哪里必须批量化，以及怎样判断内存是否真正稳定。</p>
+    <div class="kmp-paper-hero__meta" aria-label="文章信息">
+      <span>中文原文</span><span>发布于 {KMP_ARTICLE_META.publishedAt}</span><span>真机 Release</span><span>无外部图表依赖</span>
+    </div>
+  </div>
+</header>
+
+<article class="kmp-paper" lang="zh-Hans">
+  <nav class="kmp-paper__toc" aria-label="文章目录">
+    <a href="#summary">结论</a><a href="#methodology">方法</a><a href="#architecture">架构</a><a href="#ios">iOS</a><a href="#android">Android</a><a href="#harmony">HarmonyOS</a><a href="#memory">内存治理</a><a href="#selection">选型</a><a href="#limits">边界</a>
+  </nav>
+
+  <section class="kmp-paper__section" id="summary">
+    <div class="kmp-paper__section-heading"><div><p class="kmp-paper-eyebrow">Executive summary</p><h2>结论先行：一份 Core，三种高频边界</h2></div><p>“只维护一套源码”约束的是业务事实源，不意味着三端必须共享同一种 ABI、对象表示和界面调度机制。</p></div>
+    <div class="kmp-paper__conclusions">
+      <article class="kmp-paper-card"><span>01 · Android</span><h3>直接使用 KMP/JVM</h3><p>共享代码与原生 Kotlin 运行在同一 JVM/ART 体系内，不需要为普通或高频接口增加另一套桥接工具。</p></article>
+      <article class="kmp-paper-card"><span>02 · iOS</span><h3>Framework + C ABI 双通道</h3><p>普通接口继续使用官方 Kotlin/Native Framework；高频批量通道从同一 Core 导出窄 C ABI。</p></article>
+      <article class="kmp-paper-card"><span>03 · HarmonyOS</span><h3>CPF-KMP + Direct Buffer</h3><p>使用 Kotlin/Native 编译共享 Core，以 AKInterop/N-API 同步借用 ArrayBuffer，避免重型对象桥接。</p></article>
+    </div>
+    <div class="kmp-paper-callout"><strong>最重要的稳定性判断</strong><p>KMP 本身不等于内存泄漏。无界输入队列、重复完整快照、跨边界对象图、缓冲区多次拷贝和生命周期未释放，才是高频数据链路中需要被硬性限制的风险。</p></div>
+  </section>
+
+  <section class="kmp-paper__section" id="methodology">
+    <div class="kmp-paper__section-heading"><div><p class="kmp-paper-eyebrow">Methodology</p><h2>先保证结果一致，再比较性能</h2></div><p>三端使用同一场景结构和最终状态校验。快但算错的实现，不进入性能结论。</p></div>
+    <div class="kmp-paper__metrics">{scenarioMetrics.map(([value, label]) => <div class="kmp-paper-metric"><strong>{value}</strong><span>{label}</span></div>)}</div>
+    <div class="kmp-paper__two-column">
+      <div class="kmp-paper__prose"><h3>为什么同时看中位数和尾部</h3><p>中位数表示一半样本快于该值，适合观察典型表现；第 95 百分位表示 95% 的样本不超过该值；第 99 百分位专门暴露偶发抖动。高频链路里，尾部抖动比平均值更容易形成队列积压。</p><p>短场景在同一设备上交错运行多个方案，每条车道执行 5 轮。内存同时记录测试前、测试后和最高点，不用单个截图替代完整过程。</p></div>
+      <div class="kmp-paper__prose"><h3>为什么还要跑真实时间长稳</h3><p>把几万次调用压缩到数秒，只能证明吞吐上限。垃圾回收节奏、队列水位、前后台切换和停止后的释放，需要按每秒 20 批、每秒 100 批的真实速率持续运行才能观察。</p><p>不同平台的内存统计口径和设备基线不同，因此本文只在同平台、同设备、同负载内比较方案，不用 iOS 数字与 HarmonyOS 数字做平台排名。</p></div>
+    </div>
+  </section>
+
+  <section class="kmp-paper__section" id="architecture">
+    <div class="kmp-paper__section-heading"><div><p class="kmp-paper-eyebrow">Shared-core boundary</p><h2>共享业务语义，适配平台边界</h2></div><p>Core 保持单一事实源；网络、线程、页面生命周期、崩溃采集和 UI 渲染仍属于平台层。</p></div>
+    <div class="kmp-paper-architecture" role="img" aria-label="同一 Kotlin Core 通过三种平台边界连接 Android、iOS 和 HarmonyOS">
+      <div class="kmp-paper-core"><strong>Kotlin commonMain Core</strong><span>模型 · 合并 · 计算 · 排序筛选状态 · 增量 Patch</span></div>
+      <div class="kmp-paper-boundaries">
+        <article class="kmp-paper-boundary"><h3>Android</h3><p>KMP/JVM 直接 API → 原生 Kotlin Adapter → UI</p></article>
+        <article class="kmp-paper-boundary"><h3>iOS</h3><p>官方 Framework（普通接口）/ C ABI 批量缓冲区（高频接口）→ Swift Adapter → UI</p></article>
+        <article class="kmp-paper-boundary"><h3>HarmonyOS</h3><p>CPF-KMP Kotlin/Native → AKInterop/N-API Direct ArrayBuffer → ArkTS Adapter → UI</p></article>
+      </div>
+    </div>
+    <div class="kmp-paper-callout"><strong>边界原则</strong><p>跨端契约可以一致，内存表示可以不同。平台 Adapter 只做序列化、调度、生命周期和界面 Patch 消费，不复制一份业务规则。</p></div>
+  </section>
+
+  <section class="kmp-paper__section" id="ios">
+    <div class="kmp-paper__section-heading"><div><p class="kmp-paper-eyebrow">iOS benchmark</p><h2>Framework 已可用，C ABI 留给高频批量通道</h2></div><p>{IOS_ENVIRONMENT.device} · {IOS_ENVIRONMENT.system} · {IOS_ENVIRONMENT.configuration} · 每方案 {IOS_ENVIRONMENT.runsPerLane} 轮</p></div>
+    <KmpComparisonChart id="ios-latency" title="iOS 常态与突发尾部延迟" subtitle="单批 Core 处理耗时" rows={iosLatencyRows} analysis="官方 Framework 的常态第 95 百分位为 0.107 毫秒，绝对耗时已远低于常见界面刷新预算。C ABI 从同一 Core 导出批量接口后降至 0.094 毫秒；按原始纳秒样本计算改善 12.37%，收益明确但不足以证明所有接口都应改走 C ABI。" />
+    <KmpComparisonChart id="ios-throughput" title="iOS Core 理论处理余量" subtitle="测试进程内每秒完成批次" rows={iosThroughputRows} analysis="官方 Framework 在常态和突发阶段都超过每秒一万批，远高于输入负载。C ABI 约每秒 1.17 万批，适合最热的批量通道；Swift 原生更高，但三条车道都没有吞吐瓶颈。" lowerIsBetter={false} />
+    <KmpComparisonChart id="ios-memory" title="iOS 最高常驻内存" subtitle="同一完整场景的进程最高值" rows={iosMemoryRows} analysis="官方 Framework 最高 148.53 MiB，C ABI 为 136.70 MiB，少 11.83 MiB；Swift 原生为 130.47 MiB。C ABI 缩短对象桥接路径后更接近原生，但 Kotlin/Native 运行时底座仍然存在。" />
+    <div class="kmp-paper-callout"><strong>iOS 选型</strong><p>保留官方 Framework 作为默认开发接口，避免为低频调用增加 C API 维护成本；只把高频、批量、可扁平化的输入与 Patch 输出收敛到 C ABI，并在 Swift Adapter 中完成缓冲区管理、latest-only UI Patch 和页面退出释放。</p></div>
+  </section>
+
+  <section class="kmp-paper__section" id="android">
+    <div class="kmp-paper__section-heading"><div><p class="kmp-paper-eyebrow">Android benchmark</p><h2>直接使用 KMP/JVM，不增加第二层桥接</h2></div><p>{ANDROID_ENVIRONMENT.device} · {ANDROID_ENVIRONMENT.system} · {ANDROID_ENVIRONMENT.configuration} · 每方案 {ANDROID_ENVIRONMENT.runsPerLane} 轮</p></div>
+    <KmpComparisonChart id="android-latency" title="Android 常态与突发尾部延迟" subtitle="原生 Kotlin 与 KMP/JVM" rows={androidLatencyRows} analysis="本次样本中，KMP/JVM 常态第 95 百分位为 0.118 毫秒，原生 Kotlin 为 0.206 毫秒；突发第 99 百分位分别为 0.176 和 0.239 毫秒。差异只说明本实现通过门槛，不应解读为 KMP 天然快于原生。" />
+    <KmpComparisonChart id="android-memory" title="Android 最高 PSS" subtitle="进程实际占用近似值" rows={androidMemoryRows} analysis="KMP/JVM 最高 137.43 MiB，原生 Kotlin 为 119.22 MiB，增加 18.21 MiB、约 15.3%。两条车道均无输入积压，延迟和内存都处于可控范围。" />
+    <div class="kmp-paper-callout"><strong>Android 选型</strong><p>KMP/JVM 与原生 Kotlin 共享 JVM/ART 对象体系。用普通 Kotlin API 直接调用 Core，并在契约层使用批量结构即可；额外引入 C ABI 或 JavaScript 桥接只会增加复制、调试和版本治理成本。</p></div>
+  </section>
+
+  <section class="kmp-paper__section" id="harmony">
+    <div class="kmp-paper__section-heading"><div><p class="kmp-paper-eyebrow">HarmonyOS benchmark</p><h2>运行时和桥接路径决定内存底座</h2></div><p>{HARMONY_ENVIRONMENT.device} · {HARMONY_ENVIRONMENT.system} · {HARMONY_ENVIRONMENT.configuration}</p></div>
+    <KmpComparisonChart id="harmony-memory" title="HarmonyOS 完整流程最高 PSS" subtitle="同机不同实现的全流程最高值" rows={harmonyMemoryRows} analysis="优化后 KMP/KNOI 最高值从 539.60 MiB 降到 405.40 MiB，但常驻底座仍高。CPF-KMP + AKInterop 为 83.39 MiB，比优化后 KNOI 少 322.01 MiB、下降 79.43%，也低于 ArkTS 完整流程的 247.08 MiB。" />
+    <KmpComparisonChart id="harmony-optimization" title="HarmonyOS 高频边界优化阶梯" subtitle="从生命周期治理到更换桥接路径" rows={harmonyOptimizationRows} analysis="先治理缓存和生命周期能降低 24.9%，证明对象持有确有优化空间；继续改用 CPF-KMP 与同步 Direct ArrayBuffer 后才跨过绝对内存门槛。收益主要来自低常驻运行时与去重型桥接，不是单纯提高垃圾回收频率。" />
+    <KmpComparisonChart id="harmony-stability" title="CPF-KMP 长稳关键内存节点" subtitle={`${HARMONY_RESULTS.cpf.durationMinutes} 分钟、${HARMONY_RESULTS.cpf.samples} 个逐秒样本`} rows={harmonyStabilityRows} analysis={`常态实际 ${HARMONY_RESULTS.cpf.steadyBatchesPerSecond} 批/秒，高压 ${HARMONY_RESULTS.cpf.stressBatchesPerSecond} 批/秒，最大积压为 ${HARMONY_RESULTS.cpf.maximumBacklog}。停止输入后从 76.97 MiB 回落到 45.58 MiB，释放 31.39 MiB；这组曲线不支持“内存随调用次数无界增长”的判断。`} />
+    <div class="kmp-paper__metrics">
+      <div class="kmp-paper-metric"><strong data-metric="harmony-cpf-peak">83.39 MiB</strong><span>CPF 全程最高 PSS</span></div>
+      <div class="kmp-paper-metric"><strong>45.58 MiB</strong><span>停止输入后恢复值</span></div>
+      <div class="kmp-paper-metric"><strong>76,820 批</strong><span>完整长稳处理量</span></div>
+      <div class="kmp-paper-metric"><strong>62,685,120</strong><span>字段变化总量</span></div>
+      <div class="kmp-paper-metric"><strong>99.94 批/秒</strong><span>高压实际速率</span></div>
+      <div class="kmp-paper-metric"><strong>0</strong><span>最大积压</span></div>
+    </div>
+    <div class="kmp-paper-callout"><strong>HarmonyOS 选型</strong><p>新方案仍使用 Kotlin/Native，不是 Kotlin/JS。ArkTS 通过 N-API 同步传入可借用的 ArrayBuffer，Kotlin 侧在调用期间读取扁平数据，返回后不保存外部指针。普通低频接口仍可保留声明式调用，高频通道必须保持窄、批量、同步和可测。</p></div>
+  </section>
+
+  <section class="kmp-paper__section" id="memory">
+    <div class="kmp-paper__section-heading"><div><p class="kmp-paper-eyebrow">Memory governance</p><h2>七条规则把空间复杂度写进架构</h2></div><p>性能优化不能只靠一次合并间隔或一次垃圾回收；队列、对象数量、缓冲区所有权和退出释放都必须有硬边界。</p></div>
+    <div class="kmp-paper__principles">{memoryPrinciples.map(([title, body], index) => <article><h3>{String(index + 1).padStart(2, '0')} · {title}</h3><p>{body}</p></article>)}</div>
+    <div class="kmp-paper-callout"><strong>建议的稳定性门禁</strong><p>首次完整场景记录最高内存；10、30、120 分钟真实速率长稳记录内存斜率和队列深度；停止输入后观察恢复；再覆盖取消、重进、前后台和断线重连。任何阶段都不允许靠无界排队维持“零丢包”。</p></div>
+  </section>
+
+  <section class="kmp-paper__section" id="selection">
+    <div class="kmp-paper__section-heading"><div><p class="kmp-paper-eyebrow">Decision matrix</p><h2>最终工程选型</h2></div><p>共享的是业务 Core 和契约语义；平台边界根据运行时与高频调用成本选择。</p></div>
+    <div class="kmp-paper-selection"><table><thead><tr><th scope="col">平台</th><th scope="col">默认通道</th><th scope="col">高频批量通道</th><th scope="col">结论</th></tr></thead><tbody>{PLATFORM_SELECTIONS.map((item) => <tr><th scope="row">{item.platform}</th><td>{item.defaultChannel}</td><td>{item.highFrequencyChannel}</td><td>{item.selection}</td></tr>)}</tbody></table></div>
+    <div class="kmp-paper__two-column">
+      <div class="kmp-paper__prose"><h3>业务代码如何保持一套</h3><p>模型、合并、排序筛选状态、计算规则、增量 Patch 语义和 Golden 校验全部放在 <code>commonMain</code>。三端 Adapter 不得重新实现规则，只负责把平台数据转换为同一批量契约。</p></div>
+      <div class="kmp-paper__prose"><h3>出问题如何定位</h3><p>每个边界记录输入批次、处理批次、丢弃/合并次数、队列深度、Core 对象上限和 UI 待消费 Patch 数；崩溃产物保留各端符号。这样可以先判断问题位于输入、Core、桥接还是 UI，而不是把所有增长都归因于 KMP。</p></div>
+    </div>
+  </section>
+
+  <section class="kmp-paper__section" id="limits">
+    <div class="kmp-paper__section-heading"><div><p class="kmp-paper-eyebrow">Limits & reproducibility</p><h2>结论有效，但不是永久免测</h2></div><p>设备、系统、编译器、GC 和桥接工具升级都可能改变结果；正式接入仍需真实页面生命周期验证。</p></div>
+    <div class="kmp-paper__prose"><ul><li>本数据证明三个推荐方案在当前负载内达到性能与内存门槛，不证明任意 KMP 代码都自动高效。</li><li>HarmonyOS 的 31.3 分钟长稳已经回答验证工程内的有界性，正式页面仍应补齐 120 分钟、前后台、重连、取消和退出重进。</li><li>iOS 的 C ABI 只服务真实高频批量通道；普通接口优先保持 Framework 的类型安全和维护效率。</li><li>所有内存值都应结合队列深度、Core 对象数和停止后的恢复值解释，不能只看某一秒的进程数值。</li></ul></div>
+    <div class="kmp-paper-version"><h3>HarmonyOS 复现工具链</h3><table><thead><tr><th scope="col">项目</th><th scope="col">版本</th></tr></thead><tbody>{CPF_TOOLCHAIN.map((item) => <tr><th scope="row">{item.name}</th><td><code>{item.version}</code></td></tr>)}</tbody></table></div>
+    <div class="kmp-paper-version"><h3>公开源码入口</h3><p>下列地址在发布前已核验可访问。生产使用前仍应复核许可证、提交锁定和持续维护状态。</p><ul class="kmp-paper-references">{TECH_REFERENCES.map((item) => <li><a href={item.url} target="_blank" rel="noreferrer">{item.label}</a><code>{item.revision}</code></li>)}</ul></div>
+    <div class="kmp-paper-callout"><strong>最终判断</strong><p>采用 KMP 共享逻辑，不等于把所有平台细节塞进 commonMain。最稳妥的方案是：业务语义只维护一套，热路径按平台选择最低成本边界，内存治理写成可观测、可回归、可拒绝上线的硬规则。</p></div>
+  </section>
+</article>

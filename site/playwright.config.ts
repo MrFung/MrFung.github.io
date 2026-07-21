@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const baseURL = 'http://127.0.0.1:4321';
+const port = process.env.PLAYWRIGHT_PORT ?? '4321';
+const baseURL = `http://127.0.0.1:${port}`;
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -18,7 +19,7 @@ export default defineConfig({
     video: 'off',
   },
   webServer: {
-    command: 'npm run dev -- --host 127.0.0.1 --port 4321',
+    command: `npm run dev -- --host 127.0.0.1 --port ${port}`,
     url: baseURL,
     env: {
       ASTRO_DEV_BACKGROUND: '1',
