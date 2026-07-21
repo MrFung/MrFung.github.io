@@ -5,8 +5,15 @@
     <description>Full-stack, AICoding, independent apps, and BillLoopr support.</description>
     <link>https://www.mrfung.cn/</link>
     <atom:link href="https://www.mrfung.cn/rss.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 10 Jul 2026 00:00:00 +0800</lastBuildDate>
-    <pubDate>Fri, 10 Jul 2026 00:00:00 +0800</pubDate>
+    <lastBuildDate>Tue, 21 Jul 2026 00:00:00 +0800</lastBuildDate>
+    <pubDate>Tue, 21 Jul 2026 00:00:00 +0800</pubDate>
     <ttl>60</ttl>
+    <item>
+      <title><![CDATA[Kotlin Multiplatform 三端高频数据 Core：iOS、Android 与 HarmonyOS 的性能实测与工程选型]]></title>
+      <description><![CDATA[基于三端真机数据，分析共享 KMP Core 的性能、内存、调用边界与工程选型。]]></description>
+      <link>https://www.mrfung.cn/zh-Hans/writing/kmp-three-platform-performance/</link>
+      <guid isPermaLink="true">https://www.mrfung.cn/zh-Hans/writing/kmp-three-platform-performance/</guid>
+      <pubDate>Tue, 21 Jul 2026 00:00:00 +0800</pubDate>
+    </item>
   </channel>
 </rss>
