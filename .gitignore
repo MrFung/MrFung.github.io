@@ -3,4 +3,5 @@ site/dist/
 site/.astro/
 site/playwright-report/
 site/test-results/
+.worktrees/
 .DS_Store
