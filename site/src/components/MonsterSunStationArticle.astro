@@ -10,6 +10,13 @@ const projectFacts = [
   ["8月16日", "计划对外营业"],
 ];
 
+const projectSummary = [
+  "项目类型｜越野跑品牌综合空间",
+  "设计范围｜办公、展陈、接待与商业",
+  "改造原则｜尊重现状、适度更新",
+  "使用规模｜11人协同办公",
+];
+
 const designRoutes = [
   ["公众动线", "1号小门 → 日咖夜酒 → 山野会客厅 → 品牌展厅"],
   ["团队动线", "1号小门 → 机动项目区 → 二层6个固定工位"],
@@ -41,19 +48,19 @@ const pendingItems = [
       </div>
     </div>
     <p class="trail-project-hero__lead">从拥挤的二楼办公室，变成一座能办公、会客、展陈与对外营业的越野品牌据点。</p>
-    <div class="trail-project-hero__tags" aria-label="方案标签">
-      <span>方案 A</span><span>不拆固定墙</span><span>11人办公</span><span>展示接待优先</span>
+    <div class="trail-project-hero__tags" aria-label="项目摘要">
+      {projectSummary.map((item) => <span>{item}</span>)}
     </div>
   </div>
 </header>
 
 <main class="trail-project">
   <nav class="trail-project__toc" aria-label="文章目录">
-    <a href="#overview">方案总览</a>
+    <a href="#overview">设计总览</a>
     <a href="#planning">空间规划</a>
     <a href="#meeting">会议室</a>
     <a href="#facade">沿街立面</a>
-    <a href="#next">下一阶段</a>
+    <a href="#design-language">设计语言</a>
   </nav>
 
   <section class="trail-project__section trail-project__intro" id="overview">
@@ -61,7 +68,7 @@ const pendingItems = [
       <p class="trail-project__eyebrow">Project Brief</p>
       <h2>这里不是仓库，也不是住处，而是一座对山野社群开放的品牌会客厅。</h2>
       <p>怪兽小太阳是一家以越野跑赛事与山野社群为核心的团队。空间需要同时容纳日常办公、赛事筹备、赞助商洽谈、跑者接待、品牌展陈，以及对外营业的“日咖夜酒”。</p>
-      <p>方案选用 A：把二楼完整留给6个固定安静工位，一楼承担公众体验、品牌展示和5个机动返场席位。固定墙体、卫生间、楼梯、三级台阶和室内门洞均保持现状，以控制改造成本。</p>
+      <p>二楼完整设置6个固定安静工位，一楼承担公众体验、品牌展示和5个机动返场席位。固定墙体、卫生间、楼梯、三级台阶和室内门洞均保持现状，在控制改造投入的同时保留既有空间特征。</p>
     </div>
     <div class="trail-project__facts" aria-label="项目数据">
       {projectFacts.map(([value, label]) => <div><strong>{value}</strong><span>{label}</span></div>)}
@@ -69,10 +76,10 @@ const pendingItems = [
   </section>
 
   <figure class="trail-figure trail-figure--hero">
-    <a href={`${imageRoot}/scheme-a-overview.png`} target="_blank" rel="noreferrer">
-      <img src={`${imageRoot}/scheme-a-overview.png`} alt="怪兽小太阳山野会客厅方案A图纸总览，包含一二层平面和沿街正立面" width="4800" height="3450" />
+    <a href={`${imageRoot}/design-overview.png`} target="_blank" rel="noreferrer">
+      <img src={`${imageRoot}/design-overview.png`} alt="怪兽小太阳山野会客厅空间设计图纸总览，包含一二层平面和沿街正立面" width="4800" height="3450" />
     </a>
-    <figcaption>方案 A 图纸总览。点击图片可查看原尺寸。</figcaption>
+    <figcaption>空间设计图纸总览。点击图片可查看原尺寸。</figcaption>
   </figure>
 
   <section class="trail-project__section" id="planning">
@@ -86,10 +93,10 @@ const pendingItems = [
     </div>
 
     <figure class="trail-figure">
-      <a href={`${imageRoot}/scheme-a-plan.png`} target="_blank" rel="noreferrer">
-        <img src={`${imageRoot}/scheme-a-plan.png`} alt="方案A深化平面图，标注一层功能、二层工位、家具和主要尺寸" width="3600" height="2200" loading="lazy" />
+      <a href={`${imageRoot}/space-plan.png`} target="_blank" rel="noreferrer">
+        <img src={`${imageRoot}/space-plan.png`} alt="空间深化平面图，标注一层功能、二层工位、家具和主要尺寸" width="3600" height="2200" loading="lazy" />
       </a>
-      <figcaption>方案 A 深化平面：固定墙体和门洞按现状保留，家具尺寸为选型建议。</figcaption>
+      <figcaption>空间深化平面：固定墙体和门洞按现状保留，家具尺寸为选型建议。</figcaption>
     </figure>
   </section>
 
@@ -143,7 +150,7 @@ const pendingItems = [
   <section class="trail-project__section trail-project__balcony">
     <div class="trail-project__section-heading">
       <div><p class="trail-project__eyebrow">Second-floor Beacon</p><h2>二楼阳台不是多一个房间，而是整栋房子的远距离记忆点。</h2></div>
-      <p>阳台面积3.68㎡，宽6.03m，反算进深约0.61m。方案不放桌椅、不做储物，保留排水与维护净空。</p>
+      <p>阳台面积3.68㎡，宽6.03m，反算进深约0.61m。阳台不设桌椅及储物设施，保留排水与维护净空。</p>
     </div>
     <figure class="trail-figure">
       <a href={`${imageRoot}/balcony-concept.png`} target="_blank" rel="noreferrer"><img src={`${imageRoot}/balcony-concept.png`} alt="二楼阳台太阳信标设计概念图" width="3200" height="1900" loading="lazy" /></a>
@@ -151,7 +158,7 @@ const pendingItems = [
     </figure>
   </section>
 
-  <section class="trail-project__section trail-project__next" id="next">
+  <section class="trail-project__section trail-project__next" id="design-language">
     <div>
       <p class="trail-project__eyebrow">Design Language</p>
       <h2>怪兽蓝、太阳橙、保留灰砖、浅木与哑黑钢。</h2>
@@ -159,14 +166,14 @@ const pendingItems = [
       <div class="trail-project__palette" aria-label="材料与颜色"><span>怪兽蓝</span><span>太阳橙</span><span>保留灰砖</span><span>浅木</span><span>暖白</span><span>哑黑钢</span></div>
     </div>
     <aside>
-      <h3>进入施工深化前仍需确认</h3>
+      <h3>深化与施工复核</h3>
       <ul>{pendingItems.map((item) => <li>{item}</li>)}</ul>
     </aside>
   </section>
 
   <footer class="trail-project__closing">
-    <p class="trail-project__eyebrow">Next</p>
-    <h2>下一轮将以这张总览为母图，继续完成天花与照明、展陈立面、门头详图、材料清单和关键空间效果图。</h2>
-    <p>本文记录的是方案 A 的当前深化版本，不作为施工放样图使用。</p>
+    <p class="trail-project__eyebrow">Design Statement</p>
+    <h2>让办公、赛事、社群与日常营业，在同一座山野品牌空间中形成清晰而连贯的体验。</h2>
+    <p>图纸用于设计表达；施工放样与设备安装以现场复尺、结构条件及相关专业确认结果为准。</p>
   </footer>
 </main>
