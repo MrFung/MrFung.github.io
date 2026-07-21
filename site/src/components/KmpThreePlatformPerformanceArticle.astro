@@ -217,7 +217,24 @@ const memoryPrinciples = [
     <div class="kmp-paper__section-heading"><div><p class="kmp-paper-eyebrow">Limits & reproducibility</p><h2>结论有效，但不是永久免测</h2></div><p>设备、系统、编译器、GC 和桥接工具升级都可能改变结果；正式接入仍需真实页面生命周期验证。</p></div>
     <div class="kmp-paper__prose"><ul><li>本数据证明三个推荐方案在当前负载内达到性能与内存门槛，不证明任意 KMP 代码都自动高效。</li><li>HarmonyOS 的 31.3 分钟长稳已经回答验证工程内的有界性，正式页面仍应补齐 120 分钟、前后台、重连、取消和退出重进。</li><li>iOS 的 C ABI 只服务真实高频批量通道；普通接口优先保持 Framework 的类型安全和维护效率。</li><li>所有内存值都应结合队列深度、Core 对象数和停止后的恢复值解释，不能只看某一秒的进程数值。</li></ul></div>
     <div class="kmp-paper-version"><h3>HarmonyOS 复现工具链</h3><table><thead><tr><th scope="col">项目</th><th scope="col">版本</th></tr></thead><tbody>{CPF_TOOLCHAIN.map((item) => <tr><th scope="row">{item.name}</th><td><code>{item.version}</code></td></tr>)}</tbody></table></div>
-    <div class="kmp-paper-version"><h3>公开源码入口</h3><p>下列地址在发布前已核验可访问。生产使用前仍应复核许可证、提交锁定和持续维护状态。</p><ul class="kmp-paper-references">{TECH_REFERENCES.map((item) => <li><a href={item.url} target="_blank" rel="noreferrer">{item.label}</a><code>{item.revision}</code></li>)}</ul></div>
+    <div class="kmp-paper-version">
+      <h3>相关开源项目与测试版本</h3>
+      <p>这里列出本文涉及的开源项目及本次验证使用的版本，不是三端性能 Demo 的下载入口。项目名称、完整 URL 和操作入口均可打开对应公开仓库。</p>
+      <ul class="kmp-paper-references">
+        {TECH_REFERENCES.map((item) => (
+          <li class="kmp-paper-reference">
+            <h4><a href={item.url} target="_blank" rel="noreferrer">{item.label}</a></h4>
+            <p class="kmp-paper-reference__description">{item.description}</p>
+            <a class="kmp-paper-reference__url" href={item.url} target="_blank" rel="noreferrer">{item.url}</a>
+            <div class="kmp-paper-reference__revision">
+              <span>{item.revisionLabel}</span>
+              <code>{item.revision}</code>
+            </div>
+            <a class="kmp-paper-reference__action" href={item.url} target="_blank" rel="noreferrer">{item.actionLabel}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
     <div class="kmp-paper-callout"><strong>最终判断</strong><p>采用 KMP 共享逻辑，不等于把所有平台细节塞进 commonMain。最稳妥的方案是：业务语义只维护一套，热路径按平台选择最低成本边界，内存治理写成可观测、可回归、可拒绝上线的硬规则。</p></div>
   </section>
 </article>

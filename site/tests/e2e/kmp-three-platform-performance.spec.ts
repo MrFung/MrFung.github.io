@@ -35,6 +35,35 @@ test('KMP whitepaper renders verified charts and public technical copy', async (
   );
 });
 
+test('open-source references expose full repository links and version meaning', async ({ page }) => {
+  const repositories = [
+    'https://gitcode.com/CPF-KMP-CMP/kotlin',
+    'https://gitcode.com/CPF-KMP-CMP/akinterop',
+    'https://github.com/Tencent-TDS/KuiklyBase-platform',
+    'https://github.com/Tencent-TDS/KuiklyBase-components/tree/master/knoi',
+  ];
+
+  await page.goto('/zh-Hans/writing/kmp-three-platform-performance/');
+  const section = page.locator('.kmp-paper-version').filter({
+    has: page.getByRole('heading', {
+      name: '相关开源项目与测试版本',
+    }),
+  });
+
+  await expect(section).toContainText('不是三端性能 Demo 的下载入口');
+  await expect(section.getByText('本次测试锁定提交')).toHaveCount(2);
+  await expect(section.getByText('对照方案源码')).toHaveCount(2);
+  await expect(
+    section.getByRole('link', { name: '打开源码仓库 →' })
+  ).toHaveCount(4);
+
+  for (const url of repositories) {
+    await expect(
+      section.getByRole('link', { name: url, exact: true })
+    ).toHaveAttribute('href', url);
+  }
+});
+
 test('KMP whitepaper has no horizontal overflow on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/writing/kmp-three-platform-performance/');
