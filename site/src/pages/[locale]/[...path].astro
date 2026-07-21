@@ -3,7 +3,7 @@ import LocalizedPage from '../../components/LocalizedPage.astro';
 import { SUPPORTED_LOCALES } from '../../i18n/languages.mjs';
 
 export function getStaticPaths() {
-  const routePaths = ['/', '/apps/', '/about/', '/writing/', '/writing/self-introduction/', '/billloopr/', '/billloopr/privacy/', '/billloopr/support/', '/rosterslate/', '/rosterslate/privacy/', '/rosterslate/support/'];
+  const routePaths = ['/', '/apps/', '/about/', '/writing/', '/writing/self-introduction/', '/writing/monster-sun-station-design/', '/billloopr/', '/billloopr/privacy/', '/billloopr/support/', '/rosterslate/', '/rosterslate/privacy/', '/rosterslate/support/'];
   return SUPPORTED_LOCALES.flatMap((locale) => routePaths.map((routePath) => ({ params: { locale, path: routePath === '/' ? undefined : routePath.slice(1, -1) }, props: { locale, routePath } })));
 }
 const { locale, routePath } = Astro.props;

@@ -1,6 +1,6 @@
 import { SUPPORTED_LOCALES, localizedPath } from '../i18n/languages.mjs';
 
-const routePaths = ['/', '/apps/', '/about/', '/writing/', '/writing/self-introduction/', '/billloopr/', '/billloopr/privacy/', '/billloopr/support/', '/rosterslate/', '/rosterslate/privacy/', '/rosterslate/support/'];
+const routePaths = ['/', '/apps/', '/about/', '/writing/', '/writing/self-introduction/', '/writing/monster-sun-station-design/', '/billloopr/', '/billloopr/privacy/', '/billloopr/support/', '/rosterslate/', '/rosterslate/privacy/', '/rosterslate/support/'];
 
 export function GET() {
   const body = routePaths
