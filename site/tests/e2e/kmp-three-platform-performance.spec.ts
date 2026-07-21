@@ -1,5 +1,21 @@
 import { expect, test } from '@playwright/test';
 
+const locales = [
+  'en',
+  'zh-Hans',
+  'zh-Hant',
+  'ja',
+  'ko',
+  'es',
+  'fr',
+  'de',
+  'pt-BR',
+  'it',
+  'ru',
+  'ar',
+];
+const articlePath = '/writing/kmp-three-platform-performance/';
+
 test('KMP whitepaper renders verified charts and public technical copy', async ({ page }) => {
   await page.goto('/writing/kmp-three-platform-performance/');
 
@@ -32,4 +48,46 @@ test('KMP whitepaper has no horizontal overflow on mobile', async ({ page }) => 
     () => document.documentElement.scrollWidth > window.innerWidth
   );
   expect(hasHorizontalOverflow).toBe(false);
+});
+
+for (const locale of locales) {
+  test(`${locale} shell keeps the Chinese KMP original`, async ({ page }) => {
+    await page.goto(`/${locale}${articlePath}`);
+
+    await expect(page.locator('html')).toHaveAttribute('lang', locale);
+    await expect(page.locator('article[lang="zh-Hans"]')).toContainText(
+      '一份 Core，三种高频边界'
+    );
+  });
+}
+
+test('home and writing index publish the KMP article', async ({ page }) => {
+  await page.goto('/zh-Hans/');
+  const homeCard = page.locator('.article-card').filter({
+    hasText: 'Kotlin Multiplatform 三端高频数据 Core',
+  });
+  await expect(homeCard).toBeVisible();
+  await expect(homeCard.getByRole('link')).toHaveAttribute('href',
+    '/zh-Hans/writing/kmp-three-platform-performance/'
+  );
+
+  await page.goto('/zh-Hans/writing/');
+  const writingCard = page.locator('.article-card').filter({
+    hasText: 'Kotlin Multiplatform 三端高频数据 Core',
+  });
+  await expect(writingCard).toBeVisible();
+  await expect(writingCard.getByRole('link')).toHaveAttribute('href',
+    '/zh-Hans/writing/kmp-three-platform-performance/'
+  );
+});
+
+test('sitemap and feeds publish the KMP article', async ({ page }) => {
+  const sitemap = await (await page.request.get('/sitemap.txt')).text();
+  const rss = await (await page.request.get('/rss.xml')).text();
+  const atom = await (await page.request.get('/atom.xml')).text();
+
+  expect(sitemap).toContain('/ar/writing/kmp-three-platform-performance/');
+  expect(sitemap).toContain('/zh-Hans/writing/kmp-three-platform-performance/');
+  expect(rss).toContain('/zh-Hans/writing/kmp-three-platform-performance/');
+  expect(atom).toContain('/zh-Hans/writing/kmp-three-platform-performance/');
 });

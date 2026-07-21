@@ -182,12 +182,12 @@ export const CPF_TOOLCHAIN = Object.freeze([
 export const TECH_REFERENCES = Object.freeze([
   Object.freeze({
     label: 'CPF-KMP Kotlin',
-    url: 'https://gitcode.com/CPF-KMP-CMP/kotlin.git',
+    url: 'https://gitcode.com/CPF-KMP-CMP/kotlin',
     revision: '0df42d4f7eaff2f1a5a0f763de4ababc875992f2',
   }),
   Object.freeze({
     label: 'AKInterop',
-    url: 'https://gitcode.com/CPF-KMP-CMP/akinterop.git',
+    url: 'https://gitcode.com/CPF-KMP-CMP/akinterop',
     revision: 'b8b80eaa44b84bc84ee883a2c86224c07fbf2a11',
   }),
   Object.freeze({

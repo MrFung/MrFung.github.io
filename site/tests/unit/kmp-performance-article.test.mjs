@@ -56,3 +56,14 @@ test('Playwright can isolate its local server port', async () => {
   assert.match(source, /PLAYWRIGHT_PORT/);
   assert.match(source, /127\.0\.0\.1:\$\{port\}/);
 });
+
+test('technical references use browsable public pages', async () => {
+  const { TECH_REFERENCES } = await import(
+    '../../src/content/kmpThreePlatformPerformance.mjs'
+  );
+
+  for (const reference of TECH_REFERENCES) {
+    assert.match(reference.url, /^https:\/\//);
+    assert.doesNotMatch(reference.url, /\.git$/);
+  }
+});

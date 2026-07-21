@@ -3,10 +3,17 @@
   <title>MrFung</title>
   <link href="https://www.mrfung.cn/atom.xml" rel="self"/>
   <link href="https://www.mrfung.cn/"/>
-  <updated>2026-07-10T00:00:00+08:00</updated>
+  <updated>2026-07-21T00:00:00+08:00</updated>
   <id>https://www.mrfung.cn/</id>
   <author>
     <name>MrFung</name>
     <email>MrFung1231@icloud.com</email>
   </author>
+  <entry>
+    <title>Kotlin Multiplatform 三端高频数据 Core：iOS、Android 与 HarmonyOS 的性能实测与工程选型</title>
+    <link href="https://www.mrfung.cn/zh-Hans/writing/kmp-three-platform-performance/"/>
+    <id>https://www.mrfung.cn/zh-Hans/writing/kmp-three-platform-performance/</id>
+    <updated>2026-07-21T00:00:00+08:00</updated>
+    <summary>基于三端真机数据，分析共享 KMP Core 的性能、内存、调用边界与工程选型。</summary>
+  </entry>
 </feed>
