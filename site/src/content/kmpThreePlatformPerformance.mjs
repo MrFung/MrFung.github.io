@@ -182,23 +182,35 @@ export const CPF_TOOLCHAIN = Object.freeze([
 export const TECH_REFERENCES = Object.freeze([
   Object.freeze({
     label: 'CPF-KMP Kotlin',
+    description: 'HarmonyOS 使用的 Kotlin/Native 编译器与标准库源码。',
     url: 'https://gitcode.com/CPF-KMP-CMP/kotlin',
+    revisionLabel: '本次测试锁定提交',
     revision: '0df42d4f7eaff2f1a5a0f763de4ababc875992f2',
+    actionLabel: '打开源码仓库 →',
   }),
   Object.freeze({
     label: 'AKInterop',
+    description: 'Kotlin 与 HarmonyOS N-API/ArkTS 之间的直接缓冲区互操作工具。',
     url: 'https://gitcode.com/CPF-KMP-CMP/akinterop',
+    revisionLabel: '本次测试锁定提交',
     revision: 'b8b80eaa44b84bc84ee883a2c86224c07fbf2a11',
+    actionLabel: '打开源码仓库 →',
   }),
   Object.freeze({
     label: 'KuiklyBase',
+    description: '原有 HarmonyOS KMP 运行时与平台适配方案，对照测试来源。',
     url: 'https://github.com/Tencent-TDS/KuiklyBase-platform',
+    revisionLabel: '对照方案源码',
     revision: '公开仓库',
+    actionLabel: '打开源码仓库 →',
   }),
   Object.freeze({
     label: 'KNOI',
+    description: 'KuiklyBase 面向 HarmonyOS 的 Kotlin 注解桥接代码生成工具。',
     url: 'https://github.com/Tencent-TDS/KuiklyBase-components/tree/master/knoi',
+    revisionLabel: '对照方案源码',
     revision: '公开仓库',
+    actionLabel: '打开源码仓库 →',
   }),
 ]);
 

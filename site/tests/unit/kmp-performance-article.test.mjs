@@ -67,3 +67,25 @@ test('technical references use browsable public pages', async () => {
     assert.doesNotMatch(reference.url, /\.git$/);
   }
 });
+
+test('technical references explain purpose and revision semantics', async () => {
+  const { TECH_REFERENCES } = await import(
+    '../../src/content/kmpThreePlatformPerformance.mjs'
+  );
+
+  assert.equal(TECH_REFERENCES.length, 4);
+  assert.deepEqual(
+    TECH_REFERENCES.map(({ revisionLabel }) => revisionLabel),
+    [
+      '本次测试锁定提交',
+      '本次测试锁定提交',
+      '对照方案源码',
+      '对照方案源码',
+    ]
+  );
+
+  for (const reference of TECH_REFERENCES) {
+    assert.ok(reference.description.length > 0);
+    assert.equal(reference.actionLabel, '打开源码仓库 →');
+  }
+});
