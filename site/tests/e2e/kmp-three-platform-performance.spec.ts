@@ -91,3 +91,18 @@ test('sitemap and feeds publish the KMP article', async ({ page }) => {
   expect(rss).toContain('/zh-Hans/writing/kmp-three-platform-performance/');
   expect(atom).toContain('/zh-Hans/writing/kmp-three-platform-performance/');
 });
+
+test('article stylesheet stays scoped to the KMP page', async ({ page }) => {
+  const articleStyles = () => page.locator([
+    'link[rel="stylesheet"][href*="KmpThreePlatformPerformance"]',
+    'link[rel="stylesheet"][href*="kmpThreePlatformPerformance"]',
+    'style[data-vite-dev-id*="kmpThreePlatformPerformance"]',
+    'style[data-page-stylesheet="kmp-three-platform-performance"]',
+  ].join(', '));
+
+  await page.goto('/de/about/');
+  await expect(articleStyles()).toHaveCount(0);
+
+  await page.goto('/de/writing/kmp-three-platform-performance/');
+  await expect(articleStyles()).toHaveCount(1);
+});

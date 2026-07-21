@@ -2,11 +2,13 @@
 import BaseLayout from '../../../components/BaseLayout.astro';
 import KmpThreePlatformPerformanceArticle from '../../../components/KmpThreePlatformPerformanceArticle.astro';
 import { KMP_ARTICLE_META } from '../../../content/kmpThreePlatformPerformance.mjs';
+import kmpArticleCss from '../../../styles/kmpThreePlatformPerformance.css?inline';
 ---
 
 <BaseLayout
   title={`${KMP_ARTICLE_META.title} - MrFung`}
   description={KMP_ARTICLE_META.description}
+  inlineStyles={[{ id: 'kmp-three-platform-performance', css: kmpArticleCss }]}
 >
   <KmpThreePlatformPerformanceArticle />
 </BaseLayout>

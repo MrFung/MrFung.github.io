@@ -6,6 +6,7 @@ import MonsterSunStationArticle from './MonsterSunStationArticle.astro';
 import { KMP_ARTICLE_META } from '../content/kmpThreePlatformPerformance.mjs';
 import { getMessages } from '../i18n/messages/index.mjs';
 import { localizedPath } from '../i18n/languages.mjs';
+import kmpArticleCss from '../styles/kmpThreePlatformPerformance.css?inline';
 
 const { locale, routePath } = Astro.props;
 const messages = getMessages(locale);
@@ -30,7 +31,7 @@ const monsterSunTitle = '怪兽小太阳驿站设计';
 const monsterSunSummary = '越野品牌办公、会客、展陈、赞助商接待与沿街立面的完整空间方案。';
 const kmpSummary = '基于三端真机数据，比较原生、标准 KMP 与高频批量边界的延迟、吞吐、内存和长稳表现。';
 ---
-<BaseLayout {locale} {routePath} {title} {description} legacy={false}>
+<BaseLayout {locale} {routePath} {title} {description} inlineStyles={isKmpArticle ? [{ id: 'kmp-three-platform-performance', css: kmpArticleCss }] : []} legacy={false}>
   {isHome && <>
     <Hero home kicker={messages.site.home.kicker} title={messages.site.home.title} copy={messages.site.home.intro}>
       <div class="hero-tag-grid">{messages.site.home.highlights.map((item) => <span>{item}</span>)}</div>
