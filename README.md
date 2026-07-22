@@ -13,10 +13,10 @@
 - 文章创作内容保持发布时原文；现有自我介绍保留中英双语原文
 - 设计文章《怪兽小太阳驿站设计》以中文原文发布，并在各语言站点中保留原文
 - 《怪兽小太阳驿站设计》是确定设计的持续展示页，不保留方案比选、选定过程等过程性文案
-- 后续空间细化、图纸、效果图与材料信息直接更新该文章及其现有页面地址
+- 最终设计文章完整展示 A-01 至 A-12 正式图册与 10 张最终效果图，后续修订沿用现有页面地址
 - KMP 三端性能技术白皮书以中文原文发布，公开真机数据、工程边界和选型结论
 - 技术文章的图表使用原生 HTML/CSS 与内联数据，不依赖第三方图表库或 CDN
-- 文章正文使用轻量预览图并直接加载，点击图片查看原尺寸图纸或现场照片；发布前必须验证每张图片完成解码
+- 设计文章按 640 / 1200 / 1800 像素生成响应式 WebP；首屏仅立即加载总览图，其余图片按滚动位置延迟加载，点击可查看大图
 - BillLoopr 与 RosterSlate 可直接打开与 App 设置一致的语言页面
 
 ## 目录
@@ -25,6 +25,7 @@
 - `site/src/pages/`：页面源码
 - `site/public/`：构建时复制到发布目录的静态资源
 - `site/public/assets/img/monster-sun-station-design/`：怪兽小太阳驿站设计文章图纸与现场图片
+- `site/scripts/buildMonsterSunAssets.mjs`：从最终设计总包生成网站响应式图片资源
 - 根目录 HTML/CSS/XML：`npm run build` 后从 `site/dist` 复制出来的发布产物
 
 ## 常用命令
@@ -32,6 +33,7 @@
 ```bash
 cd site
 npm install
+npm run assets:monster-sun
 npm run build
 npm run test:unit
 npm run test:e2e

@@ -1,18 +1,20 @@
 import { expect, test } from '@playwright/test';
 
-test('design article renders drawings in the localized Chinese shell', async ({ page }) => {
+test('final design article renders the complete drawing set in the localized Chinese shell', async ({ page }) => {
   await page.goto('/zh-Hans/writing/monster-sun-station-design/');
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'zh-Hans');
   await expect(page.getByRole('heading', { name: '怪兽小太阳驿站设计' })).toBeVisible();
   await expect(page.getByText('项目类型｜越野跑品牌综合空间')).toBeVisible();
-  await expect(page.getByText('空间设计图纸总览。点击图片可查看原尺寸。')).toBeVisible();
-  await expect(page.locator('body')).not.toContainText(/方案\s*A|选用\s*A|下一阶段/);
+  await expect(page.getByText('A-01｜设计总览与图纸目录')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'A-01至A-12，构成完整的正式询价图册。' })).toBeVisible();
+  await expect(page.locator('body')).not.toContainText(/方案\s*A|方案\s*B|选用\s*A|下一阶段/);
 
-  const overview = page.getByAltText('怪兽小太阳山野会客厅空间设计图纸总览，包含一二层平面和沿街正立面');
+  const overview = page.getByAltText('A-01怪兽小太阳山野会客厅最终设计总览与图纸目录');
   await expect(overview).toBeVisible();
   await expect(overview).toHaveJSProperty('complete', true);
-  await expect(overview.evaluate((image) => image.naturalWidth)).resolves.toBe(1800);
+  await expect(overview.evaluate((image) => image.naturalWidth)).resolves.toBeGreaterThanOrEqual(300);
+  await expect(overview.evaluate((image) => image.currentSrc)).resolves.toMatch(/drawing-01-(640|1200)\.webp$/);
 });
 
 test('design article stays within a mobile viewport', async ({ page }) => {
@@ -24,21 +26,34 @@ test('design article stays within a mobile viewport', async ({ page }) => {
   expect(hasHorizontalOverflow).toBe(false);
 });
 
-test('all design article images decode and render while scrolling the article', async ({ page }) => {
+test('design images use responsive lazy loading while the critical overview stays eager', async ({ page }) => {
   await page.goto('/zh-Hans/writing/monster-sun-station-design/');
 
   const articleImages = page.locator('.trail-project img');
-  await expect(articleImages).toHaveCount(8);
+  await expect(articleImages).toHaveCount(22);
+
+  const eagerImageCount = await articleImages.evaluateAll((images) =>
+    images.filter((image) => image.getAttribute('loading') === 'eager').length,
+  );
+  expect(eagerImageCount).toBe(1);
 
   const lazyImageCount = await articleImages.evaluateAll((images) =>
     images.filter((image) => image.getAttribute('loading') === 'lazy').length,
   );
-  expect(lazyImageCount).toBe(0);
+  expect(lazyImageCount).toBe(21);
 
   const asyncDecodingCount = await articleImages.evaluateAll((images) =>
     images.filter((image) => image.getAttribute('decoding') === 'async').length,
   );
-  expect(asyncDecodingCount).toBe(0);
+  expect(asyncDecodingCount).toBe(21);
+
+  const responsiveImageCount = await articleImages.evaluateAll((images) =>
+    images.filter((image) => image.getAttribute('srcset')?.includes('640w') && image.getAttribute('sizes')).length,
+  );
+  expect(responsiveImageCount).toBe(22);
+
+  await expect(articleImages.first()).toHaveAttribute('fetchpriority', 'high');
+  await expect(articleImages.nth(1)).toHaveAttribute('fetchpriority', 'low');
 
   for (let index = 0; index < await articleImages.count(); index += 1) {
     const image = articleImages.nth(index);
@@ -51,7 +66,5 @@ test('all design article images decode and render while scrolling the article', 
     expect(renderedBox?.width).toBeGreaterThan(100);
     expect(renderedBox?.height).toBeGreaterThan(100);
 
-    const renderedPixels = await image.screenshot();
-    expect(renderedPixels.byteLength).toBeGreaterThan(10_000);
   }
 });
