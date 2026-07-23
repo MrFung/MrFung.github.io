@@ -8,6 +8,9 @@ test('final design article renders the complete drawing set in the localized Chi
   await expect(page.getByText('项目类型｜越野跑品牌综合空间')).toBeVisible();
   await expect(page.getByText('A-01｜设计总览与图纸目录')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'A-01至A-12，构成完整的正式询价图册。' })).toBeVisible();
+  await expect(page.getByText('山野会客厅双模式')).toBeVisible();
+  await expect(page.getByText('日常以一组低矮沙发、两把单椅和两张组合小几形成4—6人会客；活动时家具归拢，中部腾空，末端使用可移动品牌背景。')).toBeVisible();
+  await expect(page.getByText('机动项目区位于图纸下侧', { exact: true })).toBeVisible();
   await expect(page.locator('body')).not.toContainText(/方案\s*A|方案\s*B|选用\s*A|下一阶段/);
 
   const overview = page.getByAltText('A-01怪兽小太阳山野会客厅最终设计总览与图纸目录');
