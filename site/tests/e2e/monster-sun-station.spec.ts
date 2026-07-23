@@ -7,7 +7,7 @@ test('final design article renders the complete drawing set in the localized Chi
   await expect(page.getByRole('heading', { name: '怪兽小太阳驿站设计' })).toBeVisible();
   await expect(page.getByText('项目类型｜越野跑品牌综合空间')).toBeVisible();
   await expect(page.getByText('A-01｜设计总览与图纸目录')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'A-01至A-12，构成完整的正式询价图册。' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'A-01至A-13，构成完整的正式询价图册。' })).toBeVisible();
   await expect(page.getByText('山野会客厅双模式')).toBeVisible();
   await expect(page.getByText('日常以一组低矮沙发、两把单椅和两张组合小几形成4—6人会客；活动时家具归拢，中部腾空，末端使用可移动品牌背景。')).toBeVisible();
   await expect(page.getByText('机动项目区位于图纸下侧', { exact: true })).toBeVisible();
@@ -17,7 +17,7 @@ test('final design article renders the complete drawing set in the localized Chi
   await expect(overview).toBeVisible();
   await expect(overview).toHaveJSProperty('complete', true);
   await expect(overview.evaluate((image) => image.naturalWidth)).resolves.toBeGreaterThanOrEqual(300);
-  await expect(overview.evaluate((image) => image.currentSrc)).resolves.toMatch(/drawing-01-(640|1200)\.webp$/);
+  await expect(overview.evaluate((image) => image.currentSrc)).resolves.toMatch(/drawing-01-(640|1200)\.(avif|webp)$/);
 });
 
 test('design article stays within a mobile viewport', async ({ page }) => {
@@ -33,7 +33,7 @@ test('design images use responsive lazy loading while the critical overview stay
   await page.goto('/zh-Hans/writing/monster-sun-station-design/');
 
   const articleImages = page.locator('.trail-project img');
-  await expect(articleImages).toHaveCount(22);
+  await expect(articleImages).toHaveCount(26);
 
   const eagerImageCount = await articleImages.evaluateAll((images) =>
     images.filter((image) => image.getAttribute('loading') === 'eager').length,
@@ -43,20 +43,23 @@ test('design images use responsive lazy loading while the critical overview stay
   const lazyImageCount = await articleImages.evaluateAll((images) =>
     images.filter((image) => image.getAttribute('loading') === 'lazy').length,
   );
-  expect(lazyImageCount).toBe(21);
+  expect(lazyImageCount).toBe(25);
 
   const asyncDecodingCount = await articleImages.evaluateAll((images) =>
     images.filter((image) => image.getAttribute('decoding') === 'async').length,
   );
-  expect(asyncDecodingCount).toBe(21);
+  expect(asyncDecodingCount).toBe(25);
 
   const responsiveImageCount = await articleImages.evaluateAll((images) =>
     images.filter((image) => image.getAttribute('srcset')?.includes('640w') && image.getAttribute('sizes')).length,
   );
-  expect(responsiveImageCount).toBe(22);
+  expect(responsiveImageCount).toBe(26);
 
   await expect(articleImages.first()).toHaveAttribute('fetchpriority', 'high');
-  await expect(articleImages.nth(1)).toHaveAttribute('fetchpriority', 'low');
+  await expect(articleImages.nth(1)).not.toHaveAttribute('fetchpriority', /.+/);
+
+  const avifSourceCount = await page.locator('.trail-project picture source[type="image/avif"]').count();
+  expect(avifSourceCount).toBe(26);
 
   for (let index = 0; index < await articleImages.count(); index += 1) {
     const image = articleImages.nth(index);

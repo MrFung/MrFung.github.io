@@ -23,13 +23,17 @@ const drawings = [
   ['drawing-10', '02_施工图纸/正式出图/图纸10_品牌前厅与日咖夜酒运营节点详图.png'],
   ['drawing-11', '02_施工图纸/正式出图/图纸11_二层办公室与阳台节点详图.png'],
   ['drawing-12', '02_施工图纸/正式出图/图纸12_材料色彩与灯具选型控制图.png'],
+  ['drawing-13', '02_施工图纸/正式出图/图纸13_AB无门门洞收口节点详图.png'],
 ];
 
 const renders = [
   ['render-cafe', '03_三维效果图/日咖夜酒区效果图.png'],
-  ['render-lounge', '03_三维效果图/山野会客厅效果图.png'],
+  ['render-overall', '03_三维效果图/机动区与山野会客厅整体效果图_v9.png'],
+  ['render-lounge', '03_三维效果图/山野会客厅效果图_v4.png'],
   ['render-exhibition', '03_三维效果图/品牌展厅效果图.png'],
-  ['render-project-office', '03_三维效果图/机动项目区效果图.png'],
+  ['render-project-office', '03_三维效果图/机动项目区效果图_v3.png'],
+  ['render-door-a', '03_三维效果图/A矩形无门门洞效果图.png'],
+  ['render-door-b', '03_三维效果图/B拱形无门门洞效果图.png'],
   ['render-front-hall', '03_三维效果图/品牌前厅效果图.png'],
   ['render-meeting-room', '03_三维效果图/赞助商会议室效果图.png'],
   ['render-office-street', '03_三维效果图/二楼背街侧办公室效果图.png'],
@@ -38,12 +42,18 @@ const renders = [
   ['render-facade-main', '03_三维效果图/品牌正门与二楼阳台效果图.png'],
 ];
 
-const convertToWebp = async (source, destination, width, quality) => {
+const convertResponsive = async (source, name, width, webpQuality, avifQuality) => {
   await sharp(source)
     .rotate()
     .resize({ width, withoutEnlargement: true })
-    .webp({ quality, effort: 6, smartSubsample: true })
-    .toFile(destination);
+    .webp({ quality: webpQuality, effort: 6, smartSubsample: true })
+    .toFile(join(outputDirectory, `${name}-${width}.webp`));
+
+  await sharp(source)
+    .rotate()
+    .resize({ width, withoutEnlargement: true })
+    .avif({ quality: avifQuality, effort: 6, chromaSubsampling: '4:4:4' })
+    .toFile(join(outputDirectory, `${name}-${width}.avif`));
 };
 
 await rm(outputDirectory, { recursive: true, force: true });
@@ -52,15 +62,15 @@ await mkdir(outputDirectory, { recursive: true });
 for (const [name, relativeSource] of drawings) {
   const source = join(sourceDirectory, relativeSource);
   await copyFile(source, join(outputDirectory, `${name}-full.png`));
-  await convertToWebp(source, join(outputDirectory, `${name}-640.webp`), 640, 86);
-  await convertToWebp(source, join(outputDirectory, `${name}-1200.webp`), 1200, 88);
+  await convertResponsive(source, name, 640, 84, 52);
+  await convertResponsive(source, name, 1200, 86, 56);
 }
 
 for (const [name, relativeSource] of renders) {
   const source = join(sourceDirectory, relativeSource);
-  await convertToWebp(source, join(outputDirectory, `${name}-640.webp`), 640, 78);
-  await convertToWebp(source, join(outputDirectory, `${name}-1200.webp`), 1200, 81);
-  await convertToWebp(source, join(outputDirectory, `${name}-1800.webp`), 1800, 83);
+  await convertResponsive(source, name, 640, 76, 48);
+  await convertResponsive(source, name, 1200, 79, 52);
+  await convertResponsive(source, name, 1800, 81, 55);
 }
 
 await sharp(join(sourceDirectory, '07_品牌资料/怪兽小太阳官方品牌标志.jpg'))

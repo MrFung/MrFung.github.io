@@ -48,12 +48,18 @@ const renders = [
     height: 943,
   },
   {
+    baseName: 'render-overall',
+    alt: '机动项目区与山野会客厅整体最终效果图',
+    caption: '整体空间｜右侧170mm通长地台承载机动办公，低区布置山野会客厅；末端三级台阶通往赞助商会议室',
+    width: 1672,
+    height: 941,
+  },
+  {
     baseName: 'render-lounge',
     alt: '山野会客厅最终室内效果图',
-    caption: '山野会客厅｜日常4—6人软座会客，中部可腾空用于发布分享',
-    width: 1086,
-    height: 1448,
-    portrait: true,
+    caption: '山野会客厅｜软座落在无高差区域，避让2000mm拱形门洞并保留活动通道',
+    width: 1672,
+    height: 941,
   },
   {
     baseName: 'render-exhibition',
@@ -66,9 +72,24 @@ const renders = [
   {
     baseName: 'render-project-office',
     alt: '机动项目区最终室内效果图',
-    caption: '机动项目区｜5个返场工位与赛事协作信息墙',
-    width: 1667,
-    height: 943,
+    caption: '机动项目区｜7300×2230×H170mm保留地台上的5个返场工位与赛事协作信息墙',
+    width: 1672,
+    height: 941,
+  },
+  {
+    baseName: 'render-door-a',
+    alt: '1550毫米矩形无门门洞最终效果图',
+    caption: '矩形无门门洞｜1550mm现状洞口以深色门套、暗藏暖光和齐平收口衔接品牌展厅',
+    width: 1086,
+    height: 1448,
+    portrait: true,
+  },
+  {
+    baseName: 'render-door-b',
+    alt: '2000毫米拱形无门门洞最终效果图',
+    caption: '拱形无门门洞｜拆除透明罩廊及末端2200mm地台，地面找平后以深色拱框形成展厅入口',
+    width: 1448,
+    height: 1086,
   },
   {
     baseName: 'render-front-hall',
@@ -124,6 +145,7 @@ const technicalDrawings = [
   ['drawing-10', 'A-10品牌前厅与日咖夜酒运营节点详图', 'A-10｜品牌前厅与日咖夜酒运营节点详图'],
   ['drawing-11', 'A-11二层办公室与阳台节点详图', 'A-11｜二层办公室与阳台节点详图'],
   ['drawing-12', 'A-12材料色彩与灯具选型控制图', 'A-12｜材料色彩与灯具选型控制图'],
+  ['drawing-13', 'A-13矩形与拱形无门门洞收口节点详图', 'A-13｜矩形与拱形无门门洞收口节点详图'],
 ];
 
 const constructionControls = [
@@ -237,8 +259,8 @@ const constructionControls = [
 
   <section class="trail-project__section" id="drawings">
     <div class="trail-project__section-heading">
-      <div><p class="trail-project__eyebrow">Drawing Register</p><h2>A-01至A-12，构成完整的正式询价图册。</h2></div>
-      <p>A-02与A-03明确总体家具及尺寸；A-04至A-12分别控制立面、节点、照明、强弱电、展陈、运营设备、二层办公室和材料选型。</p>
+      <div><p class="trail-project__eyebrow">Drawing Register</p><h2>A-01至A-13，构成完整的正式询价图册。</h2></div>
+      <p>A-02与A-03明确总体家具及尺寸；A-04至A-13分别控制立面、节点、照明、强弱电、展陈、运营设备、二层办公室、材料选型与两处无门门洞收口。</p>
     </div>
     <div class="trail-project__drawing-grid">
       {technicalDrawings.map(([baseName, alt, caption]) => (
