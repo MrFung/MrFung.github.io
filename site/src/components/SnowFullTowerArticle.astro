@@ -1,0 +1,250 @@
+---
+import {
+  SNOW_FULL_TOWER_COPYRIGHT,
+  SNOW_FULL_TOWER_INTERPRETATION,
+  SNOW_FULL_TOWER_META,
+  SNOW_FULL_TOWER_STANZAS,
+} from '../content/snowFullTower.mjs';
+
+const snowflakes = [
+  [4, 5, 12, -5, 42, 0.72],
+  [9, 2, 17, -12, -30, 0.55],
+  [15, 7, 11, -8, 50, 0.46],
+  [21, 3, 15, -2, -36, 0.68],
+  [27, 4, 13, -10, 44, 0.58],
+  [34, 8, 10, -6, -48, 0.42],
+  [40, 3, 18, -13, 26, 0.68],
+  [46, 5, 14, -4, -54, 0.56],
+  [52, 2, 16, -11, 32, 0.7],
+  [58, 7, 11, -1, -42, 0.45],
+  [64, 4, 15, -7, 36, 0.65],
+  [70, 3, 17, -3, -30, 0.54],
+  [76, 6, 12, -9, 46, 0.52],
+  [82, 3, 16, -6, -24, 0.66],
+  [87, 5, 13, -2, 38, 0.56],
+  [91, 2, 18, -14, -32, 0.62],
+  [95, 7, 11, -4, 42, 0.44],
+  [98, 3, 15, -10, -28, 0.6],
+];
+---
+
+<article class="snow-full-tower" lang="zh-Hans">
+  <header class="snow-full-tower__hero">
+    <svg
+      class="snow-full-tower__landscape"
+      data-snow-landscape
+      viewBox="0 0 1440 820"
+      preserveAspectRatio="xMidYMid slice"
+      role="img"
+      aria-label="木楼栏杆之外，雪山连绵，白地辽阔"
+    >
+      <defs>
+        <linearGradient
+          id="snow-sky"
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="1"
+        >
+          <stop offset="0%" stop-color="#526774"></stop>
+          <stop offset="48%" stop-color="#93a4aa"></stop>
+          <stop offset="100%" stop-color="#d9dedc"></stop>
+        </linearGradient>
+        <linearGradient
+          id="snow-ground"
+          x1="0"
+          y1="0"
+          x2="1"
+          y2="1"
+        >
+          <stop offset="0%" stop-color="#eef1ef"></stop>
+          <stop offset="100%" stop-color="#b9c3c4"></stop>
+        </linearGradient>
+      </defs>
+      <rect
+        width="1440"
+        height="820"
+        fill="url(#snow-sky)"
+      ></rect>
+      <circle
+        cx="1120"
+        cy="180"
+        r="88"
+        fill="#edf1ef"
+        opacity="0.4"
+      ></circle>
+      <path
+        d="M0 450 L180 310 L330 405 L520 220 L710 410 L880 278 L1095 430 L1260 320 L1440 450 L1440 820 L0 820 Z"
+        fill="#d5dcdb"
+      ></path>
+      <path
+        d="M0 492 L195 356 L340 448 L518 276 L706 458 L884 332 L1090 475 L1265 372 L1440 472 L1440 820 L0 820 Z"
+        fill="#aebcbe"
+      ></path>
+      <path
+        d="M0 560 C230 500 420 570 620 510 C830 448 1040 546 1440 470 L1440 820 L0 820 Z"
+        fill="url(#snow-ground)"
+      ></path>
+      <path
+        d="M0 680 C350 620 740 700 1100 620 C1240 590 1350 610 1440 602 L1440 820 L0 820 Z"
+        fill="#f5f5f0"
+        opacity="0.82"
+      ></path>
+      <g class="snow-full-tower__trees">
+        <path
+          d="M925 564 l18 -64 l18 64 h-11 l15 44 h-44 l15 -44z"
+        ></path>
+        <path
+          d="M1025 550 l15 -52 l15 52 h-9 l13 38 h-38 l13 -38z"
+        ></path>
+        <path
+          d="M1165 565 l17 -61 l17 61 h-10 l14 41 h-42 l14 -41z"
+        ></path>
+      </g>
+      <g class="snow-full-tower__wood">
+        <rect x="0" y="0" width="82" height="820"></rect>
+        <rect x="0" y="44" width="500" height="54"></rect>
+        <path d="M0 96 L520 96 L445 154 L0 154 Z"></path>
+        <rect
+          x="0"
+          y="650"
+          width="1440"
+          height="38"
+        ></rect>
+        <rect x="140" y="648" width="34" height="172"></rect>
+        <rect x="510" y="648" width="34" height="172"></rect>
+        <rect x="880" y="648" width="34" height="172"></rect>
+        <rect
+          x="1250"
+          y="648"
+          width="34"
+          height="172"
+        ></rect>
+        <path
+          class="snow-full-tower__rail"
+          d="M72 716 H1410 M150 660 V820 M520 660 V820 M890 660 V820 M1260 660 V820"
+        ></path>
+      </g>
+    </svg>
+
+    <div
+      class="snow-full-tower__snowfall"
+      data-snowfall
+      aria-hidden="true"
+    >
+      {
+        snowflakes.map(
+          ([
+            left,
+            size,
+            duration,
+            delay,
+            sway,
+            opacity,
+          ]) => (
+            <span
+              class="snow-full-tower__flake"
+              style={`--flake-left:${left}%;--flake-size:${size}px;--flake-duration:${duration}s;--flake-delay:${delay}s;--flake-sway:${sway}px;--flake-end-sway:${Math.round(sway * -0.35)}px;--flake-opacity:${opacity}`}
+            />
+          )
+        )
+      }
+    </div>
+
+    <div class="snow-full-tower__hero-copy">
+      <p class="snow-full-tower__kicker">
+        {SNOW_FULL_TOWER_META.author} · 原创诗作
+      </p>
+      <h1>{SNOW_FULL_TOWER_META.title}</h1>
+      <p class="snow-full-tower__date">
+        {SNOW_FULL_TOWER_META.createdAtDisplay}
+      </p>
+      <p class="snow-full-tower__hero-line">
+        仿似世间唯一人，单手可揽天下。
+      </p>
+    </div>
+  </header>
+
+  <section
+    class="snow-full-tower__poem-section"
+    aria-labelledby="snow-poem-heading"
+  >
+    <div class="snow-full-tower__poem-inner">
+      <h2
+        id="snow-poem-heading"
+        class="snow-full-tower__section-label"
+      >
+        原诗
+      </h2>
+      <div class="snow-full-tower__poem">
+        {
+          SNOW_FULL_TOWER_STANZAS.map((stanza) => (
+            <div class="snow-full-tower__stanza">
+              {stanza.map((line) => <p>{line}</p>)}
+            </div>
+          ))
+        }
+      </div>
+      <p class="snow-full-tower__signature">
+        {SNOW_FULL_TOWER_META.author} · {
+          SNOW_FULL_TOWER_META.createdAt
+        }
+      </p>
+    </div>
+  </section>
+
+  <section
+    class="snow-full-tower__interpretation"
+    aria-labelledby="snow-interpretation-heading"
+  >
+    <div class="snow-full-tower__interpretation-inner">
+      <div class="snow-full-tower__interpretation-header">
+        <h2 id="snow-interpretation-heading">作品解读</h2>
+        <p>{SNOW_FULL_TOWER_INTERPRETATION.lead}</p>
+      </div>
+      <div class="snow-full-tower__interpretation-grid">
+        {
+          SNOW_FULL_TOWER_INTERPRETATION.sections.map(
+            (section) => (
+              <section class="snow-full-tower__reading-note">
+                <p class="snow-full-tower__note-index">
+                  {section.index} · {section.eyebrow}
+                </p>
+                <h3>{section.title}</h3>
+                <p>{section.body}</p>
+              </section>
+            )
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="snow-full-tower__closing"
+    aria-label="作品解读结语"
+  >
+    <blockquote>
+      {SNOW_FULL_TOWER_INTERPRETATION.closing}
+    </blockquote>
+    <p>{SNOW_FULL_TOWER_INTERPRETATION.closingNote}</p>
+  </section>
+
+  <section
+    class="snow-full-tower__copyright"
+    aria-labelledby="snow-copyright-heading"
+  >
+    <div class="snow-full-tower__copyright-inner">
+      <h2 id="snow-copyright-heading">版权声明</h2>
+      <p>{SNOW_FULL_TOWER_COPYRIGHT.notice}</p>
+      <p>{SNOW_FULL_TOWER_COPYRIGHT.terms}</p>
+      <p>
+        授权联系：<a
+          href={`mailto:${SNOW_FULL_TOWER_COPYRIGHT.email}`}
+        >
+          {SNOW_FULL_TOWER_COPYRIGHT.email}
+        </a>
+      </p>
+    </div>
+  </section>
+</article>

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 import {
@@ -31,6 +32,14 @@ const expectedStanzas = [
     '来日为你再登楼。',
   ],
 ];
+const stylesheetUrl = new URL(
+  '../../src/styles/snowFullTower.css',
+  import.meta.url
+);
+const modesStylesheetUrl = new URL(
+  '../../src/styles/snowFullTowerModes.css',
+  import.meta.url
+);
 
 test('锁定雪满楼原诗、署名和日期', () => {
   assert.equal(SNOW_FULL_TOWER_META.title, '雪满楼');
@@ -74,4 +83,27 @@ test('版权条款锁定作者权利与授权方式', () => {
     SNOW_FULL_TOWER_COPYRIGHT.email,
     'MrFung1231@icloud.com'
   );
+});
+
+test('雪花样式包含减少动态效果与打印回退', async () => {
+  const stylesheets = await Promise.all([
+    readFile(stylesheetUrl, 'utf8'),
+    readFile(modesStylesheetUrl, 'utf8'),
+  ]);
+  const css = stylesheets.join('\n');
+
+  assert.match(
+    css,
+    /@keyframes snow-full-tower-drift/
+  );
+  assert.match(
+    css,
+    /prefers-reduced-motion:\s*reduce/
+  );
+  assert.match(
+    css,
+    /\.snow-full-tower__flake\s*\{\s*animation:\s*none/
+  );
+  assert.match(css, /@media print/);
+  assert.doesNotMatch(css, /https?:\/\//);
 });

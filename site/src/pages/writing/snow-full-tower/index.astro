@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../../components/BaseLayout.astro';
+import SnowFullTowerArticle from '../../../components/SnowFullTowerArticle.astro';
+import { SNOW_FULL_TOWER_META } from '../../../content/snowFullTower.mjs';
+import snowFullTowerCss from '../../../styles/snowFullTower.css?inline';
+import snowFullTowerModesCss from '../../../styles/snowFullTowerModes.css?inline';
+---
+
+<BaseLayout
+  title={`${SNOW_FULL_TOWER_META.title} - ${SNOW_FULL_TOWER_META.author}`}
+  description={SNOW_FULL_TOWER_META.description}
+  inlineStyles={[
+    {
+      id: 'snow-full-tower',
+      css: `${snowFullTowerCss}\n${snowFullTowerModesCss}`,
+    },
+  ]}
+>
+  <SnowFullTowerArticle />
+</BaseLayout>
