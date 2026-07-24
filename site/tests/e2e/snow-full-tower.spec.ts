@@ -3,6 +3,20 @@ import { expect, test } from '@playwright/test';
 const articlePath = '/writing/snow-full-tower/';
 const forbiddenInterpretationCopy =
   /我的理解|我认为|在我看来|我的推荐/;
+const locales = [
+  'en',
+  'zh-Hans',
+  'zh-Hant',
+  'ja',
+  'ko',
+  'es',
+  'fr',
+  'de',
+  'pt-BR',
+  'it',
+  'ru',
+  'ar',
+];
 
 test.use({ javaScriptEnabled: false });
 
@@ -103,5 +117,103 @@ test(
       );
 
     expect(hasHorizontalOverflow).toBe(false);
+  }
+);
+
+for (const locale of locales) {
+  test(
+    `${locale} 外壳保留雪满楼中文原文`,
+    async ({ page }) => {
+      await page.goto(`/${locale}${articlePath}`);
+
+      await expect(page.locator('html')).toHaveAttribute(
+        'lang',
+        locale
+      );
+      await expect(
+        page.locator('article[lang="zh-Hans"]')
+      ).toContainText('白地三千里，');
+      await expect(
+        page.getByRole('heading', {
+          name: '作品解读',
+        })
+      ).toBeVisible();
+    }
+  );
+}
+
+test(
+  '无前缀作品地址沿用浏览器语言跳转',
+  async ({ browser }) => {
+    const context = await browser.newContext({
+      javaScriptEnabled: true,
+      locale: 'zh-CN',
+    });
+    const page = await context.newPage();
+
+    await page.goto(articlePath);
+    await expect(page).toHaveURL(
+      '/zh-Hans/writing/snow-full-tower/'
+    );
+    await context.close();
+  }
+);
+
+test(
+  '首页和文章目录发布雪满楼入口',
+  async ({ page }) => {
+    const entries = [
+      {
+        pagePath: '/zh-Hans/',
+        articleHref:
+          '/zh-Hans/writing/snow-full-tower/',
+      },
+      {
+        pagePath: '/zh-Hans/writing/',
+        articleHref:
+          '/zh-Hans/writing/snow-full-tower/',
+      },
+      {
+        pagePath: '/',
+        articleHref: articlePath,
+      },
+      {
+        pagePath: '/writing/',
+        articleHref: articlePath,
+      },
+    ];
+
+    for (const entry of entries) {
+      await page.goto(entry.pagePath);
+      const card = page
+        .locator('.article-card')
+        .filter({ hasText: '雪满楼' });
+
+      await expect(card).toBeVisible();
+      await expect(card).toContainText(
+        '一场从天地辽阔，回到一人思念的雪。'
+      );
+      await expect(
+        card.getByRole('link')
+      ).toHaveAttribute('href', entry.articleHref);
+    }
+  }
+);
+
+test(
+  '作品页专属样式不污染关于页',
+  async ({ page }) => {
+    const articleStyles = () =>
+      page.locator(
+        'style[data-page-stylesheet="snow-full-tower"]'
+      );
+
+    await page.goto('/de/about/');
+    await expect(articleStyles()).toHaveCount(0);
+
+    await page.goto(
+      '/de/writing/snow-full-tower/'
+    );
+    await expect(articleStyles()).toHaveCount(1);
   }
 );

@@ -3,10 +3,14 @@ import BaseLayout from './BaseLayout.astro';
 import Hero from './Hero.astro';
 import KmpThreePlatformPerformanceArticle from './KmpThreePlatformPerformanceArticle.astro';
 import MonsterSunStationArticle from './MonsterSunStationArticle.astro';
+import SnowFullTowerArticle from './SnowFullTowerArticle.astro';
 import { KMP_ARTICLE_META } from '../content/kmpThreePlatformPerformance.mjs';
+import { SNOW_FULL_TOWER_META } from '../content/snowFullTower.mjs';
 import { getMessages } from '../i18n/messages/index.mjs';
 import { localizedPath } from '../i18n/languages.mjs';
 import kmpArticleCss from '../styles/kmpThreePlatformPerformance.css?inline';
+import snowFullTowerCss from '../styles/snowFullTower.css?inline';
+import snowFullTowerModesCss from '../styles/snowFullTowerModes.css?inline';
 
 const { locale, routePath } = Astro.props;
 const messages = getMessages(locale);
@@ -20,31 +24,69 @@ const isWriting = routePath === '/writing/';
 const isSelfArticle = routePath === '/writing/self-introduction/';
 const isMonsterSunArticle = routePath === '/writing/monster-sun-station-design/';
 const isKmpArticle = routePath === '/writing/kmp-three-platform-performance/';
+const isSnowFullTowerArticle = routePath === SNOW_FULL_TOWER_META.path;
 const isAppProduct = routePath === `/${appKey}/`;
 const isPrivacy = routePath.endsWith('/privacy/');
 const isSupport = routePath.endsWith('/support/');
-const title = isKmpArticle ? `${KMP_ARTICLE_META.title} - MrFung` : isMonsterSunArticle ? '怪兽小太阳驿站设计 - MrFung' : isHome ? messages.site.meta.title : isApps ? `${messages.site.apps.title} - MrFung` : isAbout ? `${messages.site.about.title} - MrFung` : isWriting || isSelfArticle ? `${messages.site.writing.title} - MrFung` : `${isPrivacy ? app.privacy.title : isSupport ? app.support.title : appName} - MrFung`;
-const description = isKmpArticle ? KMP_ARTICLE_META.description : isMonsterSunArticle ? '怪兽小太阳越野跑公司办公、品牌展示、跑者接待、赞助商会议与沿街立面的室内设计方案。' : isHome ? messages.site.meta.description : app?.meta?.description ?? messages.site.meta.description;
+const title = isSnowFullTowerArticle
+  ? `${SNOW_FULL_TOWER_META.title} - ${SNOW_FULL_TOWER_META.author}`
+  : isKmpArticle
+    ? `${KMP_ARTICLE_META.title} - MrFung`
+    : isMonsterSunArticle
+      ? '怪兽小太阳驿站设计 - MrFung'
+      : isHome
+        ? messages.site.meta.title
+        : isApps
+          ? `${messages.site.apps.title} - MrFung`
+          : isAbout
+            ? `${messages.site.about.title} - MrFung`
+            : isWriting || isSelfArticle
+              ? `${messages.site.writing.title} - MrFung`
+              : `${isPrivacy ? app.privacy.title : isSupport ? app.support.title : appName} - MrFung`;
+const description = isSnowFullTowerArticle
+  ? SNOW_FULL_TOWER_META.description
+  : isKmpArticle
+    ? KMP_ARTICLE_META.description
+    : isMonsterSunArticle
+      ? '怪兽小太阳越野跑公司办公、品牌展示、跑者接待、赞助商会议与沿街立面的室内设计方案。'
+      : isHome
+        ? messages.site.meta.description
+        : app?.meta?.description ?? messages.site.meta.description;
 const articleTitle = '自我介绍：把工程、AICoding 和耐力运动放在一起';
 const articleSummary = '关于全栈、AICoding、独立产品和耐力运动的简短介绍。 / A short introduction to full-stack development, AICoding, independent products, and endurance sports.';
 const monsterSunTitle = '怪兽小太阳驿站设计';
 const monsterSunSummary = '越野品牌办公、会客、展陈、赞助商接待与沿街立面的完整空间方案。';
 const kmpSummary = '基于三端真机数据，比较原生、标准 KMP 与高频批量边界的延迟、吞吐、内存和长稳表现。';
+const inlineStyles = [
+  ...(isKmpArticle
+    ? [{
+        id: 'kmp-three-platform-performance',
+        css: kmpArticleCss,
+      }]
+    : []),
+  ...(isSnowFullTowerArticle
+    ? [{
+        id: 'snow-full-tower',
+        css: `${snowFullTowerCss}\n${snowFullTowerModesCss}`,
+      }]
+    : []),
+];
 ---
-<BaseLayout {locale} {routePath} {title} {description} inlineStyles={isKmpArticle ? [{ id: 'kmp-three-platform-performance', css: kmpArticleCss }] : []} legacy={false}>
+<BaseLayout {locale} {routePath} {title} {description} {inlineStyles} legacy={false}>
   {isHome && <>
     <Hero home kicker={messages.site.home.kicker} title={messages.site.home.title} copy={messages.site.home.intro}>
       <div class="hero-tag-grid">{messages.site.home.highlights.map((item) => <span>{item}</span>)}</div>
       <div class="mf-actions"><a class="button primary" href={localizedPath(locale, '/apps/')}>{messages.site.home.actions.apps}</a><a class="button" href={localizedPath(locale, '/writing/')}>{messages.site.home.actions.writing}</a><a class="button" href={localizedPath(locale, '/about/')}>{messages.site.home.actions.about}</a></div>
     </Hero>
-    <main><section class="section"><div class="section-heading"><h2>{messages.site.home.directoryTitle}</h2></div><div class="feature-grid">{messages.site.home.cards.map((card, index) => <article class="feature"><div><small>{card.eyebrow}</small><h3>{card.title}</h3><p>{card.body}</p></div><a href={localizedPath(locale, index === 1 ? '/writing/' : '/apps/')}>{card.action}</a></article>)}</div></section><section class="section"><div class="section-heading"><h2>{messages.site.home.writingTitle}</h2></div><div class="writing-list"><article class="article-card"><div><span class="lang-label">Technology · KMP</span><h3 lang="zh-Hans">{KMP_ARTICLE_META.title}</h3><p lang="zh-Hans">{kmpSummary}</p></div><a href={localizedPath(locale, '/writing/kmp-three-platform-performance/')}>{messages.site.home.read}</a></article><article class="article-card"><div><span class="lang-label">Interior Design</span><h3 lang="zh-Hans">{monsterSunTitle}</h3><p lang="zh-Hans">{monsterSunSummary}</p></div><a href={localizedPath(locale, '/writing/monster-sun-station-design/')}>{messages.site.home.read}</a></article><article class="article-card"><div><span class="lang-label">{messages.site.home.articleLabel}</span><h3 lang="zh-Hans">{articleTitle}</h3><p>{articleSummary}</p></div><a href={localizedPath(locale, '/writing/self-introduction/')}>{messages.site.home.read}</a></article></div></section></main>
+    <main><section class="section"><div class="section-heading"><h2>{messages.site.home.directoryTitle}</h2></div><div class="feature-grid">{messages.site.home.cards.map((card, index) => <article class="feature"><div><small>{card.eyebrow}</small><h3>{card.title}</h3><p>{card.body}</p></div><a href={localizedPath(locale, index === 1 ? '/writing/' : '/apps/')}>{card.action}</a></article>)}</div></section><section class="section"><div class="section-heading"><h2>{messages.site.home.writingTitle}</h2></div><div class="writing-list"><article class="article-card"><div><span class="lang-label">诗歌 · Poetry</span><h3 lang="zh-Hans">{SNOW_FULL_TOWER_META.title}</h3><p lang="zh-Hans">{SNOW_FULL_TOWER_META.summary}</p></div><a href={localizedPath(locale, SNOW_FULL_TOWER_META.path)}>{messages.site.home.read}</a></article><article class="article-card"><div><span class="lang-label">Technology · KMP</span><h3 lang="zh-Hans">{KMP_ARTICLE_META.title}</h3><p lang="zh-Hans">{kmpSummary}</p></div><a href={localizedPath(locale, '/writing/kmp-three-platform-performance/')}>{messages.site.home.read}</a></article><article class="article-card"><div><span class="lang-label">Interior Design</span><h3 lang="zh-Hans">{monsterSunTitle}</h3><p lang="zh-Hans">{monsterSunSummary}</p></div><a href={localizedPath(locale, '/writing/monster-sun-station-design/')}>{messages.site.home.read}</a></article><article class="article-card"><div><span class="lang-label">{messages.site.home.articleLabel}</span><h3 lang="zh-Hans">{articleTitle}</h3><p>{articleSummary}</p></div><a href={localizedPath(locale, '/writing/self-introduction/')}>{messages.site.home.read}</a></article></div></section></main>
   </>}
   {isApps && <><header class="page-intro"><div class="section"><h1>{messages.site.apps.title}</h1><p>{messages.site.apps.intro}</p></div></header><main class="section"><div class="section-heading"><h2>{messages.site.apps.directoryTitle}</h2></div><div class="feature-grid">{[['BillLoopr', messages.site.apps.billloopr, '/billloopr/'], ['RosterSlate', messages.site.apps.rosterslate, '/rosterslate/']].map(([name, body, path]) => <article class="feature"><div><h3>{name}</h3><p>{body}</p></div><p><a href={localizedPath(locale, path)}>{name}</a> · <a href={localizedPath(locale, `${path}privacy/`)}>{messages.site.apps.privacy}</a> · <a href={localizedPath(locale, `${path}support/`)}>{messages.site.apps.support}</a></p></article>)}</div></main></>}
   {isAbout && <><header class="page-intro"><div class="section"><h1>{messages.site.about.title}</h1><p>{messages.site.about.intro}</p></div></header><main><section class="section"><article class="prose-card"><h2>{messages.site.about.profileTitle}</h2><p>{messages.site.about.profileBody}</p></article><div class="feature-grid">{messages.site.about.pillars.map((item) => <article class="feature"><h3>{item.title}</h3><p>{item.body}</p></article>)}</div></section><section class="section"><div class="section-heading"><h2>{messages.site.about.interestsTitle}</h2><p>{messages.site.about.interestsIntro}</p></div><div class="metric-grid about-metrics">{messages.site.about.metrics.map((item) => <div class="metric"><strong>{item.value}</strong><span>{item.label}</span></div>)}</div></section><section class="section"><article class="lang-card"><h3>{messages.site.about.closingTitle}</h3><p>{messages.site.about.closingBody}</p></article></section></main></>}
-  {isWriting && <><header class="page-intro"><div class="section"><h1>{messages.site.writing.title}</h1><p>{messages.site.writing.intro}</p></div></header><main class="section"><div class="writing-list"><article class="article-card"><div><span class="lang-label">Technology · KMP</span><h2 lang="zh-Hans">{KMP_ARTICLE_META.title}</h2><p lang="zh-Hans">{kmpSummary}</p></div><a href={localizedPath(locale, '/writing/kmp-three-platform-performance/')}>{messages.site.writing.read}</a></article><article class="article-card"><div><span class="lang-label">Interior Design</span><h2 lang="zh-Hans">{monsterSunTitle}</h2><p lang="zh-Hans">{monsterSunSummary}</p></div><a href={localizedPath(locale, '/writing/monster-sun-station-design/')}>{messages.site.writing.read}</a></article><article class="article-card"><div><span class="lang-label">{messages.site.writing.original}</span><h2 lang="zh-Hans">{articleTitle}</h2><p>{articleSummary}</p></div><a href={localizedPath(locale, '/writing/self-introduction/')}>{messages.site.writing.read}</a></article></div></main></>}
+  {isWriting && <><header class="page-intro"><div class="section"><h1>{messages.site.writing.title}</h1><p>{messages.site.writing.intro}</p></div></header><main class="section"><div class="writing-list"><article class="article-card"><div><span class="lang-label">诗歌 · Poetry</span><h2 lang="zh-Hans">{SNOW_FULL_TOWER_META.title}</h2><p lang="zh-Hans">{SNOW_FULL_TOWER_META.summary}</p></div><a href={localizedPath(locale, SNOW_FULL_TOWER_META.path)}>{messages.site.writing.read}</a></article><article class="article-card"><div><span class="lang-label">Technology · KMP</span><h2 lang="zh-Hans">{KMP_ARTICLE_META.title}</h2><p lang="zh-Hans">{kmpSummary}</p></div><a href={localizedPath(locale, '/writing/kmp-three-platform-performance/')}>{messages.site.writing.read}</a></article><article class="article-card"><div><span class="lang-label">Interior Design</span><h2 lang="zh-Hans">{monsterSunTitle}</h2><p lang="zh-Hans">{monsterSunSummary}</p></div><a href={localizedPath(locale, '/writing/monster-sun-station-design/')}>{messages.site.writing.read}</a></article><article class="article-card"><div><span class="lang-label">{messages.site.writing.original}</span><h2 lang="zh-Hans">{articleTitle}</h2><p>{articleSummary}</p></div><a href={localizedPath(locale, '/writing/self-introduction/')}>{messages.site.writing.read}</a></article></div></main></>}
   {isSelfArticle && <><header class="page-intro"><div class="section"><p class="page-kicker">Self Introduction</p><h1 lang="zh-Hans">自我介绍 / Self Introduction</h1></div></header><main class="section"><article class="prose-card article-body"><section lang="zh-Hans"><p class="meta-line">中文</p><h2>把真实工作流做成能长期维护的工具。</h2><p>我关注全栈开发、AICoding 和独立产品。相比只做一个漂亮的展示，我更在意工具能不能真正进入日常工作流，能不能减少混乱，能不能长期被维护。</p><p>运动给了我另一套相似的判断方式。ITRA 430、马拉松大众二级、红十字救护员、越野跑和划桨板，这些标签背后都是同一件事：稳定训练、清晰节奏、尊重风险，然后持续往前。</p></section><section lang="en"><p class="meta-line article-language">English</p><h2>Building tools that can stay useful.</h2><p>I focus on full-stack development, AICoding, and independent products. Instead of making one-off demos, I care about tools that become part of real workflows, reduce friction, and stay maintainable.</p><p>Endurance sports shape the same thinking: train steadily, keep a clear rhythm, respect risk, and keep moving.</p></section></article></main></>}
   {isMonsterSunArticle && <MonsterSunStationArticle />}
   {isKmpArticle && <KmpThreePlatformPerformanceArticle />}
+  {isSnowFullTowerArticle && <SnowFullTowerArticle />}
   {isAppProduct && <><Hero home kicker={app.product.kicker} title={appName} copy={app.product.intro}><div class="mf-actions"><a class="button primary" href={localizedPath(locale, `/${appKey}/support/`)}>{app.product.support}</a><a class="button" href={localizedPath(locale, `/${appKey}/privacy/`)}>{app.product.privacy}</a></div></Hero><main><section class="section"><div class="section-heading"><h2>{app.product.heading}</h2><p>{app.product.headingBody}</p></div><div class="feature-grid">{app.product.features.map(([heading, body]) => <article class="feature"><h3>{heading}</h3><p>{body}</p></article>)}</div></section><section class="section"><article class="lang-card"><h3>{app.product.privacyTitle}</h3><p>{app.product.privacyBody}</p><a href={localizedPath(locale, `/${appKey}/privacy/`)}>{app.product.privacyAction}</a></article></section></main></>}
   {isPrivacy && <><Hero compact kicker={appName} title={app.privacy.title} copy={app.privacy.effective} /><main class="section"><article class="prose-card content-stack"><p>{app.privacy.intro}</p>{app.privacy.sections.map(([heading, body]) => <section class="callout"><h3>{heading}</h3><p>{body}</p></section>)}<section class="callout"><h3>{app.privacy.contactTitle}</h3><p>{app.privacy.contactBody} <a href="mailto:MrFung1231@icloud.com">MrFung1231@icloud.com</a></p></section></article></main></>}
   {isSupport && <><Hero compact kicker={appName} title={app.support.title} copy={app.support.intro} /><main><section class="section"><article class="contact-card"><h3>{app.support.contactTitle}</h3><p>{app.support.emailLabel}: <a href="mailto:MrFung1231@icloud.com">MrFung1231@icloud.com</a></p><p>{app.support.contactBody}</p></article></section><section class="section"><article class="prose-card"><h3>{app.support.topicsTitle}</h3><ul>{app.support.topics.map((topic) => <li>{topic}</li>)}</ul></article></section><section class="section"><article class="prose-card content-stack"><section class="callout"><h3>{app.support.dataTitle}</h3><p>{app.support.dataBody}</p><a href={localizedPath(locale, `/${appKey}/privacy/`)}>{app.support.privacyAction}</a></section><section class="callout"><h3>{app.support.disclaimerTitle}</h3><p>{app.support.disclaimerBody}</p></section></article></section></main></>}

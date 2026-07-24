@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
+import { SNOW_FULL_TOWER_META } from "../content/snowFullTower.mjs";
 ---
 <BaseLayout>
   <Hero
@@ -66,6 +67,16 @@ import Hero from "../components/Hero.astro";
         <h2>文章 / Writing</h2>
       </div>
       <div class="writing-list">
+        <article class="article-card">
+          <div>
+            <span class="lang-label">诗歌 · Poetry</span>
+            <h3>{SNOW_FULL_TOWER_META.title}</h3>
+            <p>{SNOW_FULL_TOWER_META.summary}</p>
+          </div>
+          <a href={SNOW_FULL_TOWER_META.path}>
+            阅读 / Read
+          </a>
+        </article>
         <article class="article-card">
           <div>
             <span class="lang-label">Interior Design</span>

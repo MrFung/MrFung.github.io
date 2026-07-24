@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
+import { SNOW_FULL_TOWER_META } from "../../content/snowFullTower.mjs";
 ---
 <BaseLayout title="文章 / Writing - MrFung" description="MrFung 的文章目录，记录全栈、AICoding、独立产品和运动实践。">
   <header class="page-intro">
@@ -16,6 +17,16 @@ import BaseLayout from "../../components/BaseLayout.astro";
   <main>
     <section class="section">
       <div class="writing-list">
+        <article class="article-card">
+          <div>
+            <span class="lang-label">诗歌 · Poetry</span>
+            <h2>{SNOW_FULL_TOWER_META.title}</h2>
+            <p>{SNOW_FULL_TOWER_META.summary}</p>
+          </div>
+          <a href={SNOW_FULL_TOWER_META.path}>
+            阅读 / Read
+          </a>
+        </article>
         <article class="article-card">
           <div>
             <span class="lang-label">Technology · KMP</span>
