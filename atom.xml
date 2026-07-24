@@ -3,12 +3,24 @@
   <title>MrFung</title>
   <link href="https://www.mrfung.cn/atom.xml" rel="self"/>
   <link href="https://www.mrfung.cn/"/>
-  <updated>2026-07-21T00:00:00+08:00</updated>
+  <updated>2026-07-25T00:00:00+08:00</updated>
   <id>https://www.mrfung.cn/</id>
   <author>
     <name>MrFung</name>
     <email>MrFung1231@icloud.com</email>
   </author>
+  <entry>
+    <title>雪满楼</title>
+    <link href="https://www.mrfung.cn/zh-Hans/writing/snow-full-tower/"/>
+    <id>https://www.mrfung.cn/zh-Hans/writing/snow-full-tower/</id>
+    <updated>2026-07-25T00:00:00+08:00</updated>
+    <author>
+      <name>郭清枫</name>
+      <email>MrFung1231@icloud.com</email>
+    </author>
+    <rights>© 郭清枫。保留所有权利。未经授权不得转载或使用。</rights>
+    <summary>一场从天地辽阔，回到一人思念的雪。</summary>
+  </entry>
   <entry>
     <title>Kotlin Multiplatform 三端高频数据 Core：iOS、Android 与 HarmonyOS 的性能实测与工程选型</title>
     <link href="https://www.mrfung.cn/zh-Hans/writing/kmp-three-platform-performance/"/>

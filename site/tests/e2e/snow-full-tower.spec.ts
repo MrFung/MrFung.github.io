@@ -120,6 +120,47 @@ test(
   }
 );
 
+test(
+  '移动端语言标签和首屏引诗不发生视觉挤压',
+  async ({ page }) => {
+    await page.setViewportSize({
+      width: 390,
+      height: 844,
+    });
+    await page.goto(
+      '/zh-Hans/writing/snow-full-tower/'
+    );
+
+    const [
+      heroBox,
+      heroLineBox,
+      languageLabelBox,
+    ] = await Promise.all([
+      page
+        .locator('.snow-full-tower__hero')
+        .boundingBox(),
+      page
+        .locator('.snow-full-tower__hero-line')
+        .boundingBox(),
+      page
+        .getByText('语言', { exact: true })
+        .boundingBox(),
+    ]);
+
+    expect(heroBox).not.toBeNull();
+    expect(heroLineBox).not.toBeNull();
+    expect(languageLabelBox).not.toBeNull();
+    expect(languageLabelBox!.height).toBeLessThan(
+      30
+    );
+    expect(
+      heroLineBox!.y + heroLineBox!.height
+    ).toBeLessThan(
+      heroBox!.y + heroBox!.height * 0.78
+    );
+  }
+);
+
 for (const locale of locales) {
   test(
     `${locale} 外壳保留雪满楼中文原文`,

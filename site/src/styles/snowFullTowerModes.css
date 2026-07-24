@@ -14,12 +14,32 @@
 }
 
 @media (max-width: 720px) {
+  body:has(.snow-full-tower) .nav-inner {
+    width: min(1120px, calc(100% - 20px));
+    gap: 10px;
+  }
+
+  body:has(.snow-full-tower)
+    .language-switcher {
+    flex-shrink: 0;
+  }
+
+  body:has(.snow-full-tower)
+    .language-switcher > span {
+    white-space: nowrap;
+  }
+
+  body:has(.snow-full-tower)
+    .language-switcher select {
+    max-width: 8.5rem;
+  }
+
   .snow-full-tower__hero {
     min-height: 640px;
   }
 
   .snow-full-tower__hero-copy {
-    padding: 180px 0 72px;
+    padding: 180px 0 170px;
   }
 
   .snow-full-tower__hero h1 {

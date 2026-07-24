@@ -72,7 +72,7 @@
 .snow-full-tower__hero-copy {
   width: min(1100px, calc(100% - 44px));
   margin: 0 auto;
-  padding: 170px 0 96px;
+  padding: 170px 0;
   color: #f9fbfc;
 }
 

@@ -5,9 +5,17 @@
     <description>Full-stack, AICoding, independent apps, and BillLoopr support.</description>
     <link>https://www.mrfung.cn/</link>
     <atom:link href="https://www.mrfung.cn/rss.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Tue, 21 Jul 2026 00:00:00 +0800</lastBuildDate>
-    <pubDate>Tue, 21 Jul 2026 00:00:00 +0800</pubDate>
+    <lastBuildDate>Sat, 25 Jul 2026 00:00:00 +0800</lastBuildDate>
+    <pubDate>Sat, 25 Jul 2026 00:00:00 +0800</pubDate>
     <ttl>60</ttl>
+    <item>
+      <title><![CDATA[雪满楼]]></title>
+      <author>MrFung1231@icloud.com (郭清枫)</author>
+      <description><![CDATA[一场从天地辽阔，回到一人思念的雪。© 郭清枫。保留所有权利。未经授权不得转载或使用。]]></description>
+      <link>https://www.mrfung.cn/zh-Hans/writing/snow-full-tower/</link>
+      <guid isPermaLink="true">https://www.mrfung.cn/zh-Hans/writing/snow-full-tower/</guid>
+      <pubDate>Sat, 25 Jul 2026 00:00:00 +0800</pubDate>
+    </item>
     <item>
       <title><![CDATA[Kotlin Multiplatform 三端高频数据 Core：iOS、Android 与 HarmonyOS 的性能实测与工程选型]]></title>
       <description><![CDATA[基于三端真机数据，分析共享 KMP Core 的性能、内存、调用边界与工程选型。]]></description>
