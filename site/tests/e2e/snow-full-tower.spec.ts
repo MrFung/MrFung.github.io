@@ -217,3 +217,38 @@ test(
     await expect(articleStyles()).toHaveCount(1);
   }
 );
+
+test(
+  'sitemap 与订阅源收录雪满楼和版权提示',
+  async ({ page }) => {
+    const sitemap = await (
+      await page.request.get('/sitemap.txt')
+    ).text();
+    const rss = await (
+      await page.request.get('/rss.xml')
+    ).text();
+    const atom = await (
+      await page.request.get('/atom.xml')
+    ).text();
+
+    expect(sitemap).toContain(
+      '/en/writing/snow-full-tower/'
+    );
+    expect(sitemap).toContain(
+      '/zh-Hans/writing/snow-full-tower/'
+    );
+    expect(sitemap).toContain(
+      '/ar/writing/snow-full-tower/'
+    );
+    expect(rss).toContain(
+      '/zh-Hans/writing/snow-full-tower/'
+    );
+    expect(rss).toContain(
+      '© 郭清枫。保留所有权利。'
+    );
+    expect(atom).toContain(
+      '/zh-Hans/writing/snow-full-tower/'
+    );
+    expect(atom).toContain('<name>郭清枫</name>');
+  }
+);
